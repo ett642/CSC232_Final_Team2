@@ -2,28 +2,30 @@
 #define SAVINGSACCOUNT_H
 #include <string>
 #include <iostream>
-#include "BankAccount.h"
+#include "AbAccount.h"
 #include <limits>
 using namespace std;
 
 //SavingsAccount represents a functioning savings account
 // SavingsAccount class is a child class of parent
-// BankAccount class
+// AbAccount class
 
-class SavingsAccount : public BankAccount {
+class SavingsAccount : public AbAccount {
     public:
     bool status;
    // Default constructor
-   SavingsAccount() : BankAccount()
+   SavingsAccount() : AbAccount()
    {
       status = true;
    }
    // 2nd Constructor
    SavingsAccount (string num, double balance, double interestRate): 
-   BankAccount (num, balance, interestRate)
+   AbAccount (num, balance, interestRate)
    {
       status = true;
    }
+   //function to display menu
+   void display
    //function to deposit money
    void deposit(double amount) 
    {
