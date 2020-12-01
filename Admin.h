@@ -20,12 +20,12 @@ class Admin : public Accounts
    
    }
    //2nd constructor
-   Admin() : Accounts()
+   Admin(int num, string pass, string inName, string date): Accounts(num,pass,inName,date)
    {
    
    }
    
-   //function to display menu
+   //function for post login 
    
    //function to create a bank official login
 
