@@ -11,6 +11,12 @@ private:
 	string lastDate;
 	
 public:
+	Accounts(int num, string pass, string inName){
+		number = num;
+		password = pass;
+		name = inName;
+	}
+	
 	virtual void login(string date){
 		lastDate = date;
 	}
