@@ -2,32 +2,32 @@
 #define CD_H
 #include <string>
 #include <iostream>
-#include "BankAccount.h"
+#include "AbAccount.h"
 #include <limits>
 using namespace std;
 
-//CD represents a functioning certificate of deposits
+// CD represents a functioning certificate of deposits
 // CD class is a child class of parent
-// BankAccount class
+// AbAccount class
 
-class CD : public BankAccount {
+class CD : public AbAccount {
     public:
     double term;
-    double rate;
+    double annualRate;
     bool status;
    // Default constructor
-   SavingsAccount() : BankAccount()
+   CD() : AbAccount()
    {
-      double term = 365;
-      double rate = 10;
+      double term = 3;
+      double rate = 0.1;
       bool status = true
    }
    // 2nd Constructor
    CD (string num, double balance, double interestRate): 
-   BankAccount (num, balance, interestRate)
+   AbAccount (num, balance, interestRate)
    {
-      term = 365;
-      rate = 10;
+      term = 3;
+      rate = 0.1;
       status = true
    }
    //function to open a CD
@@ -64,12 +64,12 @@ class CD : public BankAccount {
    void withdraw(double amount) //function to withdraw money
    {
        if(status == false) 
-        { // deny the withdraw
-            cout << "You may not withdraw, your Certificate of Deposit balance is: $" << accBalance << endl;
-            cout << "You must wait until the maturity date to withdraw your funds " << endl;
+        { // withdraw with penalty
+            cout << "Warning! Your withdrawl will incur a penalty, your Certificate of Deposit balance is: $" << accBalance << endl;
+            cout << "You must wait until the maturity date to withdraw your funds with no penalty " << endl;
         }
         else if (status == true) 
-        { // do the withdraw from the balance
+        { // do the withdraw from the balance with no penalty
             if(accBalance >= amount) 
             {
                 accBalance -= amount; 
@@ -81,14 +81,17 @@ class CD : public BankAccount {
             if(accBalance < 0.0)// if the balance falls below $0 account becomes inactive 
             {
                 cout << "Warning! You cannot withdraw your Certificate of Deposit has fallen below $0.00. " << endl;
-                cout << "You must deposit more money and wait until the maturity date before you can make another withdraw." << endl;
+                cout << "You must deposit more money and wait until the maturity date before you can make another withdraw without penalty." << endl;
                 status = false;
             }
         }
     }
-    void calcInterest(double accBalance)// calculates current interest
+    void calcInterest(double accBalance, double annualRate)// calculates current interest
     {
-       accBalance = calcInt(accBalance);
+       double dailyRate = annualRate / 365;
+       dailyRate = dailyRate * accBalance;
+       accBalance += dailyRate;
+       return accBalance;
     }      
 };
 #endif
