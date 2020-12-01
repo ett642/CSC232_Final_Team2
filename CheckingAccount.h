@@ -2,21 +2,21 @@
 #define CHECKINGACCOUNT_H
 #include <string>
 #include <iostream>
-#include "BankAccount.h"
+#include "AbAccount.h"
 #include <limits>
 using namespace std;
 
-class CheckingAccount : public BankAccount 
+class CheckingAccount : public AbAccount 
 {
    public:
    // Default constructor
-   CheckingAccount() : BankAccount()
+   CheckingAccount() : AbAccount()
    {
       flag = false;
    }
     
    CheckingAccount(string num, long double balance, double intrestRate) 
-   : BankAccount(num, balance, intrestRate)
+   : AbAccount(num, balance, intrestRate)
    {
       flag = false;
    }
