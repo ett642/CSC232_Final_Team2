@@ -11,10 +11,11 @@ private:
 	string lastDate;
 	
 public:
-	Accounts(int num, string pass, string inName){
+	Accounts(int num, string pass, string inName, string date){
 		number = num;
 		password = pass;
 		name = inName;
+		lastDate = date;
 	}
 	
 	virtual void login(string date){
