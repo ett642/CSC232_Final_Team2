@@ -18,8 +18,9 @@ public:
 		lastDate = date;
 	}
 	
-	virtual void login(string date){
+	virtual void loggedIn(string date){
+		cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
 		lastDate = date;
 	}
-	};
+};
 #endif
