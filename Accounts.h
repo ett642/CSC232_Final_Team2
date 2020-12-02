@@ -5,7 +5,7 @@
 using namespace std;
 
 class Accounts{
-private:
+protected:
 	string number;
 	string password;
 	string name;
