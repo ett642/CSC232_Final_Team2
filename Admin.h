@@ -118,6 +118,8 @@ class Admin : public Accounts
    
    } 
    
+};
+#endif
    
    //function to create a bank official login
 
