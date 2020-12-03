@@ -44,199 +44,69 @@ class Admin : public Accounts
                     int userInput;
                     cin >> userInput;
                     switch(userInput) {
+                       switch(userInput) 
+                    {
                        case 1: 
                        {
                           cout << "-------------------" << endl;
-                          cout << "Enter Bank Official First Name" << endl;
+                          cout << "How much would you like to deposit?" << endl;
                           cout << "-------------------" << endl;
-                          string firstname;
-                          cin >> firstname; 
-                         
-                          cout << "-------------------" << endl;
-                          cout << "Enter Bank Official Last Name" << endl;
-                          cout << "-------------------" << endl;
-                          string lastname;
-                          cin >> lastname;
-                          inName = firstname + lastname;
-                          //return inName?
+                          long double depositAmt;
+                          cin >> depositAmt;
+                          deposit(depositAmt);
+                          //deposit amount using depositAmt?
                           
                           cout << "-------------------" << endl;
-                          cout << "Enter Bank Official Profile Number (4 digits)" << endl;
+                          cout << "Your new balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cin >> num;
-                          //check if number entered is 4 digits
-                         
-                          cout << "-------------------" << endl;
-                          cout << "Enter Bank Official Profile Password" << endl;
-                          cout << "-------------------" << endl;
-                          cin >> pass;
-                          
-                          //error checking here
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
                           continue;
-                        }
-                        
-                        case 2: 
-                        {
+                       }
+                       case 2: 
+                       {
                           cout << "-------------------" << endl;
-                          cout << "Search a Bank Official by Profile Number" << endl;
+                          cout << "How much would you like to Withdraw?" << endl;
                           cout << "-------------------" << endl;
-                          cin >> num;
+                          long double withdrawAmt;
+                          cin >> withdrawAmt;
+                          withdraw(withdrawAmt);
+                          
+                          //withdraw amount using withdrawAmt?
                           
                           cout << "-------------------" << endl;
-                          cout << "Enable this Bank Official? Y/N" << endl;
+                          cout << "Your new balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if answer == Y || answer == y
-                          {
-                          //proceed with enabling the bank official
-                          }
-                          else if answer == N || answer == n
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
                           continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to enable this bank official? y/n
-                          } 
+                       }
+                       case 3:
+                       {
+                          cout << "-------------------" << endl;
+                          cout << "Your Current Balance is: " << balance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
                           continue;
-                        }
-                         
-                        case 3: 
-                        {
+                       }
+                       case 4:
+                       {
                           cout << "-------------------" << endl;
-                          cout << "Search a Bank Official by Profile Number" << endl;
+                          cout << "Returning to Main Menu... " << endl;
                           cout << "-------------------" << endl;
-                          cin >> num;
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Disable this Bank Official? Y/N" << endl;
-                          cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if answer == Y || answer == y
-                          {
-                          //proceed with enabling the bank official
-                          }
-                          else if answer == N || answer == n
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
+                          return;
+                       }
+                       default: // error catching
+                       { 
+                          cout << "Try another input!" << endl;
+                          cin.clear();
+                          cin.ignore();
                           continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to disable this bank official? y/n
-                          } 
-                          continue;
-                        }
-                        
-                        case 4: 
-                        {
-                          cout << "-------------------" << endl;
-                          cout << "Enter Customer First Name" << endl;
-                          cout << "-------------------" << endl;
-                          string firstname;
-                          cin >> firstname; 
-                         
-                          cout << "-------------------" << endl;
-                          cout << "Enter Customer Last Name" << endl;
-                          cout << "-------------------" << endl;
-                          string lastname;
-                          cin >> lastname;
-                          inName = firstname + lastname;
-                          //return inName?
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Enter Customer Profile Number (5 digits)" << endl;
-                          cout << "-------------------" << endl;
-                          cin >> num;
-                          //check if number entered is 5 digits
-                         
-                          cout << "-------------------" << endl;
-                          cout << "Enter Customer Profile Password" << endl;
-                          cout << "-------------------" << endl;
-                          cin >> pass;                        
-                        }
-                        
-                        case 5: 
-                        {
-                          cout << "-------------------" << endl;
-                          cout << "Search a Customer by Profile Number" << endl;
-                          cout << "-------------------" << endl;
-                          cin >> num;
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Delete this Cusotmer? Y/N" << endl;
-                          cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if answer == Y || answer == y
-                          {
-                          //proceed with deleting the user
-                          //figure out how to delete user completely
-                          }
-                          else if answer == N || answer == n
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to delete this Customer? y/n
-                          } 
-                          continue;
-                        }
-                        
-                        case 6: 
-                        {
-                          cout << "-------------------" << endl;
-                          cout << "Search a Customer by Profile Number" << endl;
-                          cout << "-------------------" << endl;
-                          cin >> num;
-                                                    
-                          cout << "-------------------" << endl;
-                          cout << "Edit this Cusotmer Profile? Y/N" << endl;
-                          cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if answer == Y || answer == y
-                          {
-                          //proceed with editing the user
-                          //figure out how to reset password here as well
-                          }
-                          else if answer == N || answer == n
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to delete this Customer? y/n
-                          } 
-                          continue;
-                        }
-                        case 6: 
-                        {
-                          cout << "-------------------" << endl;
-                          cout << "Returning to Main Menu..." << endl;
-                          cout << "-------------------" << endl;
-                          break;
-                          //find out how to exit
-
-
-                        }
-                        default: 
-                        {       // error catching
-                                cout << "Try another input!" << endl;
-                                cin.clear();
-                                cin.ignore();
-                                continue;
-                        }
+                       }
                      }
                  }
              }
