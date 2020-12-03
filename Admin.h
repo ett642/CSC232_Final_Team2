@@ -13,13 +13,7 @@ class Admin : public Accounts
 {
    public:
       //public variables
-   
-   //Default constructor
-   Admin() : Accounts()
-   {
-   
-   }
-   //2nd constructor
+   //Constructor
    Admin(string num, string pass, string inName, string date): Accounts(num,pass,inName,date)
    {
    
