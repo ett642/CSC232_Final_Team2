@@ -240,6 +240,11 @@ class Admin : public Accounts
                      }
                  }
              }
+   string printToFile (string num, string pass, string inName, string date)
+   {
+      string info;
+      info = num + pass + inName + date;
+      return info;
    
    } 
    
