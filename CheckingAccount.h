@@ -8,24 +8,107 @@ using namespace std;
 
 class CheckingAccount : public AbAccount 
 {
-   public:
+   protected:
+   bool flag;
+   
    // Default constructor
    CheckingAccount() : AbAccount()
    {
       flag = false;
    }
     
-   CheckingAccount(string num, long double balance, double intrestRate) 
-   : AbAccount(num, balance, intrestRate)
+   CheckingAccount (string num, string date, double balance, bool status, bool flag): AbAccount(num, date, balance,status)
    {
       flag = false;
    }
+   
+   //function for logged in menu
+   void loggedIn(string date)
+   {
+	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
+	lastDate = date;
+   for(;;) { // menu for  loop
+                    cout << "-------------------" << endl;
+                    cout << "What would you like to do? \n" << endl;
+                    cout << "[1] Deposit Funds" << endl;
+                    cout << "[2] Withdraw Funds" << endl;
+                    cout << "[3] Check Account Balance" << endl;
+                    cout << "[4] Return to Main Menu" << endl;
+                    cout << "-------------------" << endl;
+                    int userInput;
+                    cin >> userInput;
+                    switch(userInput) {
+                       case 1: 
+                       {
+                          cout << "-------------------" << endl;
+                          cout << "How much would you like to deposit?" << endl;
+                          cout << "-------------------" << endl;
+                          long double depositAmt;
+                          cin >> depositAmt;
+                          deposit(depositAmt);
+                          
+                          //deposit amount using depositAmt?
+                          
+                          cout << "-------------------" << endl;
+                          cout << "Your new balance is: " << balance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
+                          continue;
+                       }
+                       case 2: 
+                       {
+                          cout << "-------------------" << endl;
+                          cout << "How much would you like to Withdraw?" << endl;
+                          cout << "-------------------" << endl;
+                          long double withdrawAmt;
+                          cin >> withdrawAmt;
+                          withdraw(withdrawAmt);
+                          
+                          //withdraw amount using withdrawAmt?
+                          
+                          cout << "-------------------" << endl;
+                          cout << "Your new balance is: " << balance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
+                          continue;
+                       }
+                       case 3:
+                       {
+                          cout << "-------------------" << endl;
+                          cout << "Your Current Balance is: " << balance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
+                          continue;
+                       }
+                       case 4:
+                       {
+                          cout << "-------------------" << endl;
+                          cout << "Returning to Main Menu... " << endl;
+                          cout << "-------------------" << endl;
+                          return;
+                       }
+                       default: // error catching
+                       { 
+                          cout << "Try another input!" << endl;
+                          cin.clear();
+                          cin.ignore();
+                          continue;
+                       }
+                    }
+                 }
+    }
 
     void deposit(long double amount) 
     {
         if(amount > 0.00) 
         {
-            accBalance += amount; // deposit the amount
+            balance += amount; // deposit the amount
         }
         else 
         {
@@ -57,14 +140,14 @@ class CheckingAccount : public AbAccount
                 break;
             }
        }
-       if(accBalance >= amount) 
+       if(balance >= amount) 
        {
-         accBalance -= amount; // subtract the amount if it's in the balance
+         balance -= amount; // subtract the amount if it's in the balance
        }
        else 
        {
          cout << "Invalid funds " << endl;
-         if(accBalance < 0.00) 
+         if(balance < 0.00) 
          { // if account balance is below 0 let the user know and do not allow withdraw
             cout << "Your balance fell below $0.";
          }
