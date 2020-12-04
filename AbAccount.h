@@ -45,12 +45,11 @@ class AbAccount
             balance -= amount;
         }
         // calculates daily interest rate and adds the daily interest to account balance
-        double calcInt(double balance)
+        void calcInt()
         {
             double dailyIR = interestRate / 365;
             dailyIR = dailyIR * balance;
             balance += dailyIR;
-            return balance;
         }
 
         void setStatus()
