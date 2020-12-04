@@ -13,7 +13,10 @@ class User : public Accounts
 {
     private:
     string phone;
-	string address
+	string address;
+	CheckingAccount checking = CheckingAccount();
+	SavingsAccount savings = SavingsAccount();
+	CD cd = CD();
 
 
     public:
