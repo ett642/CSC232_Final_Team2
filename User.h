@@ -11,7 +11,7 @@ using namespace std;
 
 class User : public Accounts
 {
-    private:
+    protected:
     string phone;
 	string address;
 	CheckingAccount checking = CheckingAccount();
@@ -20,13 +20,12 @@ class User : public Accounts
 
 
     public:
-    void accMenu();
+    void accMenu(string date);
     void changePass();
 
-    User(string num, string pass, string inName, string date, string inPhone, string inAddress) : Accounts(num, pass, inName, date)
+    User(  string num, string pass, string inName, string date, vector<string> transactions) : Accounts( num,  pass,  inName,  date)
     {
-        phone = inPhone;
-	address = inAddress;
+        transactions.clear();
     }
 
     void loggedIn(string date){
@@ -39,7 +38,7 @@ class User : public Accounts
         {
             case 1:
             {
-                accMenu();
+                accMenu(date);
             }
             case 2:
             {
@@ -52,7 +51,7 @@ class User : public Accounts
         }
 	}
 
-    void accMenu()
+    void accMenu(string date)
     {
         int userInput;
         cout << "What would you like to do:\n" << "1 to access Checking:\n" << "2 to access savings:\n" << "3 to access CD:\n";
@@ -61,7 +60,7 @@ class User : public Accounts
         {
             case 1:
             {
-                //checking
+                checking.menu(date);
             }
             case 2:
             {
@@ -91,7 +90,7 @@ class User : public Accounts
             }
 
         }
-        // save password to file here.
+        password = input;
 
     }
 };
