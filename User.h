@@ -33,20 +33,41 @@ class User : public Accounts
 		lastDate = date;
         int userInput;
 
-        cout << "What would you like to do:\n" << "1 to access accounts:\n" << "2 to access change password:\n" << "3 to access transactions:\n";
-        switch(userInput)
+        for(;;)
         {
-            case 1:
+            cout << "What would you like to do:\n" << "1 to access accounts:\n" << "2 to access change password:\n";
+            cout << "3 to access transactions:\n" << "4 to exit\n";
+            switch(userInput)
             {
-                accMenu(date);
-            }
-            case 2:
-            {
-                //change password
-            }
-            case 3:
-            {
-                //transactions
+                case 1:
+                {
+                    accMenu(date);
+                }
+                case 2:
+                {
+                    changePass();
+                }
+                case 3:
+                {
+                    //transactions
+                }
+                
+                case 4:
+                {
+                    cout << "-------------------" << endl;
+                    cout << "Returning to Main Menu... " << endl;
+                    cout << "-------------------" << endl;
+                    return;
+                }
+                
+                default: // error catching
+                { 
+                    cout << "Try another input!" << endl;
+                    cin.clear();
+                    cin.ignore();
+                    continue;
+                }
+                
             }
         }
 	}
@@ -54,21 +75,40 @@ class User : public Accounts
     void accMenu(string date)
     {
         int userInput;
-        cout << "What would you like to do:\n" << "1 to access Checking:\n" << "2 to access savings:\n" << "3 to access CD:\n";
+        cout << "What would you like to do:\n" << "1 to access Checking:\n" << "2 to access savings:\n";
+        cout << "3 to access CD:\n" << "4 to exit\n";
         cin >> userInput;
-        switch(userInput)
+        for(;;)
         {
-            case 1:
+            switch(userInput)
             {
-                checking.menu(date);
-            }
-            case 2:
-            {
-                //savings
-            }
-            case 3:
-            {
-                //CD
+                case 1:
+                {
+                    checking.menu(date);
+                }
+                case 2:
+                {
+                    savings.menu(date);
+                }
+                case 3:
+                {
+                    cd.menu(date);
+                }
+                case 4:
+                {
+                    cout << "-------------------" << endl;
+                    cout << "Exiting Menu... " << endl;
+                    cout << "-------------------" << endl;
+                    return;
+                }
+                
+                default: // error catching
+                { 
+                    cout << "Try another input!" << endl;
+                    cin.clear();
+                    cin.ignore();
+                    continue;
+                }
             }
         }
     }
