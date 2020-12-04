@@ -12,21 +12,20 @@ using namespace std;
 
 class CD : public AbAccount {
     public:
-    double term;
+    double maturityDate;
     double rate;
     bool flag;
+    
     // Constructor
-    CD (string num, string date, double balance, bool status, bool flag): AbAccount(num, date, balance,status)
+    CD (): AbAccount()
     {
-       term = 3;
-       rate = 0.1;
-       flag = true;
+
     }
    //function for logged in menu
    void menu(string date)
    {
-	//cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
-	//lastDate = date;
+   //implement interest rate here from the difference between last date and current date
+	lastDate = date;
    for(;;) { // menu for  loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
@@ -45,12 +44,15 @@ class CD : public AbAccount {
                           cout << "-------------------" << endl;
                           long double depositAmt;
                           cin >> depositAmt;
-                          deposit(depositAmt);
+                          open(depositAmt);
                           
                           //deposit amount using depositAmt?
                           
                           cout << "-------------------" << endl;
-                          cout << "Your CD balance is: " << balance << endl;
+                          cout << "Your CD balance is: " << balance << endl
+                          cout << "Maturity Date: " << endl; //put maturityDate variable here
+                          cout << "Days Remaining: " << endl; // put termLength variable here
+                          cout << "Annual Interest Rate: " << endl;//put rate variable here
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           cout << "-------------------" << endl;
@@ -74,6 +76,7 @@ class CD : public AbAccount {
                           cout << "Your CD is now closed" << endl;
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
+                          cout << "-------------------" << endl;
                           char enter = cin.get(); 
                           cin.ignore();
                           continue;
@@ -82,6 +85,9 @@ class CD : public AbAccount {
                        {
                           cout << "-------------------" << endl;
                           cout << "Your Current CD Balance is: " << balance << endl;
+                          cout << "Maturity Date: " << endl; //put maturityDate variable here
+                          cout << "Days Remaining: " << endl;//put termLength variable here
+                          cout << "Interest Rate: " << endl;//put rate varaible here
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           cout << "-------------------" << endl;
@@ -127,7 +133,7 @@ class CD : public AbAccount {
             cout << "Please enter a valid deposit: "<< endl; //prompts user to enter a valid deposit
             double amt;
             cin >> amt;
-            deposit(amt);
+            open(amt);
             break;
          }
       }
@@ -135,13 +141,9 @@ class CD : public AbAccount {
       {
          status = true;
       }
-      else // redudant statement...
-      { 
-         status = false; 
-      }
-        
    }
-   void withdraw(double amount) //function to withdraw money
+   
+   void close(double amount) //function to withdraw money and close the account
    {
        if(status == false) 
         { // withdraw with penalty
@@ -166,12 +168,32 @@ class CD : public AbAccount {
             }
         }
     }
-    double calcInterest(double balance, double annualRate)// calculates current interest
+    
+    void calcInt()// calculates current interest based on CD's fixed annual rate
     {
-       double dailyRate = annualRate / 365;
+       double dailyRate = rate / 365;
        dailyRate = dailyRate * balance;
        balance += dailyRate;
-       return balance;
-    }      
+    }  
+    
+    //function to determine when the maturity date of the CD is
+    string maturityCalc(string date)
+    {
+      //take the current date and change the month variable to be 3 months later
+      
+      //return the result as a string variable "maturityDate"
+      
+    }
+    
+    //function to determine days until maturity date here
+    double timeLeft(double maturityDate)
+    {
+      //take today's date and the maturity date
+      //find the difference between them in days
+      // return variable named "termLength" which is the number of days between the current date
+      // and the maturity date.
+    }
+    
+       
 };
 #endif
