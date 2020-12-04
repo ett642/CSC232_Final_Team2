@@ -22,6 +22,7 @@ class AbAccount
             status = false;
             dateOfOC = "";
             balance = 0.00;
+			interestRate = 0;
         }
 
         AbAccount( string acc, string date, double bal, bool stat)
@@ -69,7 +70,9 @@ class AbAccount
                 }
             }
         }
-    
-
+		
+		void setInterest(double interest){
+			interestRate = interest;
+		}
 };
 #endif
