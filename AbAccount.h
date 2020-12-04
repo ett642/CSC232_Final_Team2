@@ -16,6 +16,7 @@ class AbAccount
         bool status;
 
     public:
+    string lastDate;
         AbAccount()
         {
             status = false;
