@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Accounts.h"
 #include <limits>
+#include <vector>
 using namespace std;
 
 //Admin class represents the role of a banking administrator
@@ -12,7 +13,7 @@ using namespace std;
 class Admin : public Accounts
 {
    public:
-      //public variables
+   //public variables
    //Constructor
    Admin(string num, string pass, string inName, string date): Accounts(num,pass,inName,date)
    {
@@ -20,7 +21,7 @@ class Admin : public Accounts
    }
    
    //function for logged in menu
-	void loggedIn(string date)
+	void loggedIn(string date, vector<Accounts> &logins)
    {
 	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
 	lastDate = date;
@@ -57,14 +58,15 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Enter Bank Official Profile Number (4 digits)" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
+                          
                           //check if number entered is 4 digits
                          
                           cout << "-------------------" << endl;
                           cout << "Enter Bank Official Profile Password" << endl;
                           cout << "-------------------" << endl;
-						  string pass;
+						        string pass;
                           cin >> pass;
                           
                           //error checking here
@@ -76,22 +78,23 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Search a Bank Official by Profile Number" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
-                          
-                          cout << "-------------------" << endl;
+                          for(Accounts &i: logins)
+                          {
+   		                 cout << "-------------------" << endl;
                           cout << "Enable this Bank Official? Y/N" << endl;
                           cout << "-------------------" << endl;
                           string answer;
                           cin >> answer;
                           if(answer == "Y" || answer == "y")
                           {
-                          //proceed with enabling the bank official
+                              i.changeStatus();
                           }
                           else if(answer == "N" || answer == "n")
                           {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
+                              cout << "Returning to Admin Menu..." << endl;
+                              continue;
                           }
                           else
                           {
@@ -99,6 +102,7 @@ class Admin : public Accounts
                           //return to enable this bank official? y/n
                           } 
                           continue;
+                          }                      
                         }
                          
                         case 3: 
@@ -106,29 +110,31 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Search a Bank Official by Profile Number" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Disable this Bank Official? Y/N" << endl;
+                          for(Accounts &i: logins)
+                          {
+   		                 cout << "-------------------" << endl;
+                          cout << "Enable this Bank Official? Y/N" << endl;
                           cout << "-------------------" << endl;
                           string answer;
                           cin >> answer;
                           if(answer == "Y" || answer == "y")
                           {
-                          //proceed with enabling the bank official
+                              i.changeStatus();
                           }
                           else if(answer == "N" || answer == "n")
                           {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
+                              cout << "Returning to Admin Menu..." << endl;
+                              continue;
                           }
                           else
                           {
                           cout << "Invalid option...Please Try Again" <<endl;
-                          //return to disable this bank official? y/n
+                          //return to enable this bank official? y/n
                           } 
                           continue;
+                          }                      
                         }
                         
                         case 4: 
@@ -150,15 +156,17 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Enter Customer Profile Number (5 digits)" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
-                          //check if number entered is 5 digits
-                         
-                          cout << "-------------------" << endl;
-                          cout << "Enter Customer Profile Password" << endl;
-                          cout << "-------------------" << endl;
-						  string pass;
-                          cin >> pass;                        
+		                    for(Accounts &i: logins)
+                          {
+   		                    if(i.getNumber() == num)
+                             cout << "-------------------" << endl;
+                             cout << "Enter Customer Profile Password" << endl;
+                             cout << "-------------------" << endl;
+   						        string pass;
+                             cin >> pass;  
+                          }                      
                         }
                         
                         case 5: 
@@ -166,30 +174,33 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Search a Customer by Profile Number" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Delete this Cusotmer? Y/N" << endl;
-                          cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if(answer == "Y" || answer == "y")
+		                    for(Accounts &i: logins)
                           {
-                          //proceed with deleting the user
-                          //figure out how to delete user completely
+   		                    if(i.getNumber() == num)
+                             cout << "-------------------" << endl;
+                             cout << "Delete this Cusotmer? Y/N" << endl;
+                             cout << "-------------------" << endl;
+                             string answer;
+                             cin >> answer;
+                             if(answer == "Y" || answer == "y")
+                             {
+                              //proceed with deleting the user
+                              //figure out how to delete user completely
+                             }
+                             else if(answer == "N" || answer == "n")
+                             {
+                                cout << "Returning to Admin Menu..." << endl;
+                                continue;
+                             }
+                             else
+                             {
+                                cout << "Invalid option...Please Try Again" <<endl;
+                                //return to delete this Customer? y/n
+                             } 
+                             continue;
                           }
-                          else if(answer == "N" || answer == "n")
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to delete this Customer? y/n
-                          } 
-                          continue;
                         }
                         
                         case 6: 
@@ -197,31 +208,35 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Search a Customer by Profile Number" << endl;
                           cout << "-------------------" << endl;
-						  string num;
+						        string num;
                           cin >> num;
-                                                    
-                          cout << "-------------------" << endl;
-                          cout << "Edit this Cusotmer Profile? Y/N" << endl;
-                          cout << "-------------------" << endl;
-                          string answer;
-                          cin >> answer;
-                          if(answer == "Y" || answer == "y")
+		                    for(Accounts &i: logins)
                           {
-                          //proceed with editing the user
-                          //figure out how to reset password here as well
+   		                    if(i.getNumber() == num)                 
+                             cout << "-------------------" << endl;
+                             cout << "Edit this Cusotmer Profile? Y/N" << endl;
+                             cout << "-------------------" << endl;
+                             string answer;
+                             cin >> answer;
+                             if(answer == "Y" || answer == "y")
+                             {
+                             //proceed with editing the user
+                             //figure out how to reset password here as well
+                             }
+                             else if(answer == "N" || answer == "n")
+                             {
+                             cout << "Returning to Admin Menu..." << endl;
+                             continue;
+                             }
+                             else
+                             {
+                             cout << "Invalid option...Please Try Again" <<endl;
+                             //return to edit this Customer? y/n
+                             } 
+                             continue;
                           }
-                          else if(answer == "N" || answer == "n")
-                          {
-                          cout << "Returning to Admin Menu..." << endl;
-                          continue;
-                          }
-                          else
-                          {
-                          cout << "Invalid option...Please Try Again" <<endl;
-                          //return to delete this Customer? y/n
-                          } 
-                          continue;
                         }
+                        
                         case 7: 
                         {
                           cout << "-------------------" << endl;
@@ -229,9 +244,8 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           break;
                           //find out how to exit
-
-
                         }
+                        
                         default: 
                         {       // error catching
                                 cout << "Try another input!" << endl;
@@ -252,17 +266,4 @@ class Admin : public Accounts
    
 };
 #endif
-   
-   //function to create a bank official login
 
-   //function to enable a bank official login
-   
-   //function to disable a bank official login
-   
-   //function to create user account
-   
-   //function to delete user account
-   
-   //function to modify user account
-   
-   //function to change user password
