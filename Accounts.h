@@ -2,24 +2,22 @@
 #define ACCOUNTS_H
 #include <iostream>
 #include <string>
-#include "CD.h"
-#include "CheckingAccount.h"
-#include "SavingsAccount.h"
 using namespace std;
 
 class Accounts{
 protected:
-	string number;
 	string password;
 	string name;
-	string lastDate;
 	
 public:
+	string number;
+	string lastDate;
 	Accounts(string num, string pass, string inName, string date){
 		number = num;
 		password = pass;
 		name = inName;
 		lastDate = date;
+		
 	}
 	
 	virtual void loggedIn(string date){
@@ -35,20 +33,9 @@ public:
 	string getPassword(){
 		return password;
 	}
-
-	virtual void changeCheckingStat()
-    {
-        
-    }
-
-    virtual void changeSavingsStat()
-    {
-		
-    }
-    
-    virtual void changeCDStat()
-    {
-
-    }
+	
+	virtual string printToFile(){
+		return "";
+	}
 };
 #endif
