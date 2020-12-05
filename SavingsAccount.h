@@ -2,6 +2,7 @@
 #define SAVINGSACCOUNT_H
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "AbAccount.h"
 #include <limits>
 using namespace std;
@@ -117,11 +118,14 @@ class SavingsAccount : public AbAccount {
 
 
    //function to deposit money
-   void deposit(double amount, string date) 
+   void deposit(double amount, string number,string date) 
    {
       if(amount > 0.00) //if the amount deposited is more than 0 
       {
          balance += amount;//successfully deposit
+		 fstream file; file.open(number+"transactions.txt");
+		 file<<date+"*Deposited "<<amount<<" into savings."<<endl;
+		 file.close();
       }
       else //if the deposit is not a positive amount it will not deposit
       {
@@ -145,7 +149,7 @@ class SavingsAccount : public AbAccount {
    }
    
    
-   void withdraw(double amount, string date) //function to withdraw money
+   void withdraw(double amount, string number, string date) //function to withdraw money
    {
        if(flag == false) 
         { // deny the withdrawl
@@ -156,7 +160,10 @@ class SavingsAccount : public AbAccount {
         { // do the withdrawl from the balance
             if(balance >= amount) 
             {
-                balance -= amount; 
+                balance -= amount;
+				fstream file; file.open(number+"transactions.txt");
+				file<<date+"*Withdrew "<<amount<<" from savings."<<endl;
+				file.close();
             }
             else 
             {
