@@ -49,7 +49,7 @@ class CD : public AbAccount {
                           //deposit amount using depositAmt?
                           
                           cout << "-------------------" << endl;
-                          cout << "Your CD balance is: " << balance << endl
+                          cout << "Your CD balance is: " << balance << endl;
                           cout << "Maturity Date: " << endl; //put maturityDate variable here
                           cout << "Days Remaining: " << endl; // put termLength variable here
                           cout << "Annual Interest Rate: " << endl;//put rate variable here
@@ -177,22 +177,22 @@ class CD : public AbAccount {
     }  
     
     //function to determine when the maturity date of the CD is
-    string maturityCalc(string date)
-    {
+    //string maturityCalc(string date)
+   // {
       //take the current date and change the month variable to be 3 months later
       
       //return the result as a string variable "maturityDate"
       
-    }
+   // }
     
     //function to determine days until maturity date here
-    double timeLeft(double maturityDate)
-    {
+   // double timeLeft(double maturityDate)
+   // {
       //take today's date and the maturity date
       //find the difference between them in days
       // return variable named "termLength" which is the number of days between the current date
       // and the maturity date.
-    }
+   // }
     
        
 };
