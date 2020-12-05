@@ -131,14 +131,21 @@ class User : public Accounts
         password = input;
 
     }
+
+    CheckingAccount getChecking()
+    {
+        return checking;
+    }
     
-    string printToFile ()
-   {
-      string info;
-      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address;
-      return info;
-   
-   }
+    SavingsAccount getSavings()
+    {
+        return savings;
+    }
+
+    CD getCD()
+    {
+        return cd;
+    }
 };
 
 
