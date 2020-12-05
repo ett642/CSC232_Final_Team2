@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <ctime>
 #include "Accounts.h"
 #include "Admin.h"
 #include "Official.h"
@@ -13,12 +14,13 @@ Driver for Team 2 CSC 232 final project Bear Bank.
 Project done by Ethan Tanner, Ethan Dawley, and Christian Leslie
 */
 
-void getDate(string date, int *month, int *day, int *year){
-	*month = stoi(date.substr(0,date.find("/")));
-	date = date.substr(date.find("/")+1);
-	*day = stoi(date.substr(0,date.find("/")));
-	date = date.substr(date.find("/")+1);
-	*year = stoi(date);
+string getDate(){
+	time_t timeNow = time(0);
+
+       
+    tm *localTime = localtime(&timeNow);
+
+    return to_string(1 + localTime->tm_mon) +"/"+to_string(localTime->tm_mday)+"/"+ to_string(1900 + localTime->tm_year);
 }
 
 void fromFile(vector<Accounts> &logins){
@@ -77,8 +79,11 @@ void fromFile(vector<Accounts> &logins){
 				phone = text.substr(0, text.find("*"));
 				text = text.substr(text.find("*")+1);
 				
-				address = text;
+				address = text.substr(0, text.find("*"));
+				text = text.substr(text.find("*")+1);
+				
 				User temp = User(num,pass,name,lastDate,phone,address);
+				temp.fileInput(text);
 				logins.push_back(temp);
 			}
 		}
@@ -111,11 +116,9 @@ void loginSearch(string number, string password, vector<Accounts> &logins){
 main(){
 	vector<Accounts> logins;
 	
-	string loginNum; string password; string date;
-	int month; int day; int year;
-	cout<<"Enter today's date (MM/DD/YYYY): ";
-	cin>>date;
-	getDate(date, &month, &day, &year);
+	string loginNum; string password;
+	string date = getDate();
+	cout<<date<<endl;
 	fromFile(logins);
 	
 	cout<<"Welcome to Bear Bank!\n[1] Login\n[2] Exit"<<endl;
