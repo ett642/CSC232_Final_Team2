@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include "CD.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
@@ -11,7 +12,7 @@ using namespace std;
 
 class User : public Accounts
 {
-    protected:
+    private:
     string phone;
 	string address;
 	CheckingAccount checking = CheckingAccount();
@@ -24,10 +25,14 @@ class User : public Accounts
     User(string num, string pass, string inName, string date, string inPhone, string inAddress) : Accounts(num, pass, inName, date)
     {
         phone = inPhone;
-	address = inAddress;
+		address = inAddress;
+		
+		string temp = number+"transactions.txt";
+		ofstream file; file.open(temp);
+		file.close();
     }
 
-    void loggedIn(string date){
+	void loggedIn(string date){
 		cout << "Successfully logged in! Last login was " << lastDate << endl;
 		lastDate = date;
         int userInput;
@@ -83,11 +88,11 @@ class User : public Accounts
             {
                 case 1:
                 {
-                    checking.menu(date);
+                    checking.Menu(date);
                 }
                 case 2:
                 {
-                    savings.menu(date);
+                    savings.Menu(date);
                 }
                 case 3:
                 {
@@ -132,15 +137,15 @@ class User : public Accounts
         password = input;
 
     }
-    
-    string printToFile ()
-   {
+	
+	string printToFile ()
+	{
       string info;
-      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address;
+      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address+"*"+checking.printToFile()+"*"+savings.printToFile();
       return info;
-   }
-
-    CheckingAccount getChecking()
+	}
+   
+   CheckingAccount getChecking()
     {
         return checking;
     }
@@ -154,10 +159,27 @@ class User : public Accounts
     {
         return cd;
     }
+	
+	void fileInput(string text){
+		double bal; string stat; double interest;
+		bal = stod(text.substr(0, text.find("*")));
+		text = text.substr(text.find("*")+1);
+		
+		stat = text.substr(0, text.find("*"));
+		text = text.substr(text.find("*")+1);
+		
+		checking.fileInfo(bal, stat);
+		
+		bal = stod(text.substr(0, text.find("*")));
+		text = text.substr(text.find("*")+1);
+		
+		stat = text.substr(0, text.find("*"));
+		text = text.substr(text.find("*")+1);
+		
+		interest = stod(text);
+		
+		savings.fileInfo(bal, stat, interest);
+	}
+	
 };
-
-
-
-
-
 #endif
