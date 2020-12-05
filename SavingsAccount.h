@@ -11,7 +11,7 @@ using namespace std;
 // AbAccount class
 
 class SavingsAccount : public AbAccount {
-    protected:
+    public:
     bool flag;
    // Default constructor
    SavingsAccount() : AbAccount()
@@ -25,10 +25,13 @@ class SavingsAccount : public AbAccount {
    }
    
    //function for logged in menu
-   void loggedIn(string date)
+   void Menu(string date)
    {
-	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
-	lastDate = date;
+	   if(!status){
+		cout<<"You don't have a savings account! Contact a Bank Official to open one.\n";
+		return;
+	}
+	lastDate=date;
    for(;;) { // menu for  loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
@@ -48,7 +51,7 @@ class SavingsAccount : public AbAccount {
                           cout << "-------------------" << endl;
                           long double depositAmt;
                           cin >> depositAmt;
-                          deposit(depositAmt);
+                          deposit(depositAmt, date);
                           //deposit amount using depositAmt?
                           
                           cout << "-------------------" << endl;
@@ -66,7 +69,7 @@ class SavingsAccount : public AbAccount {
                           cout << "-------------------" << endl;
                           long double withdrawAmt;
                           cin >> withdrawAmt;
-                          withdraw(withdrawAmt);
+                          withdraw(withdrawAmt,date);
                           
                           //withdraw amount using withdrawAmt?
                           
@@ -114,7 +117,7 @@ class SavingsAccount : public AbAccount {
 
 
    //function to deposit money
-   void deposit(double amount) 
+   void deposit(double amount, string date) 
    {
       if(amount > 0.00) //if the amount deposited is more than 0 
       {
@@ -142,7 +145,7 @@ class SavingsAccount : public AbAccount {
    }
    
    
-   void withdraw(double amount) //function to withdraw money
+   void withdraw(double amount, string date) //function to withdraw money
    {
        if(flag == false) 
         { // deny the withdrawl
@@ -167,9 +170,28 @@ class SavingsAccount : public AbAccount {
             }
         }
     }
-    void calcInterest(double accBalance)// calculates current interest
-    {
-       accBalance = calcInt(accBalance);
-    }      
+
+string changeStatus(){
+		if(status){
+			return "t";
+		}
+		return "f";
+	}
+
+	string printToFile ()
+	{
+		string info;
+		info = to_string(balance)+"*"+changeStatus()+"*"+to_string(interestRate);
+		return info;
+	}
+	
+	void fileInfo(double bal, string stat, double interest){
+	   balance = bal;
+		interestRate = interest;
+		if(stat == "t")
+			status = true;
+		else
+			status = false; 
+   }
 };
 #endif
