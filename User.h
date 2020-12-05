@@ -53,7 +53,9 @@ class User : public Accounts
                 }
                 case 3:
                 {
-                    //transactions
+                    cout<<"Enter the date to search from (MM/DD/YYYY) : ";
+					string inDate; cin>>inDate;
+					transactionFile(inDate);
                 }
                 
                 case 4:
@@ -181,5 +183,25 @@ class User : public Accounts
 		savings.fileInfo(bal, stat, interest);
 	}
 	
+	void transactionFile(string date){
+		int month; int day; int year; int fileMonth; int fileDay; int fileYear; string text;
+		getDate(date, &month, &day, &year);
+		fstream file; file.open(number+"transaction.txt");
+		while(getline(file, text)){
+			string temp = text.substr(0, text.find("*"));
+			getDate(temp, &fileMonth,&fileDay,&fileYear);
+			if(year<=fileYear and month<=fileMonth and day<=fileDay){
+				cout<<text<<endl;
+			}
+		}
+	}
+	
+	void getDate(string date, int *month, int *day, int *year){
+		*month = stoi(date.substr(0,date.find("/")));
+		date = date.substr(date.find("/")+1);
+		*day = stoi(date.substr(0,date.find("/")));
+		date = date.substr(date.find("/")+1);
+		*year = stoi(date);
+	}
 };
 #endif
