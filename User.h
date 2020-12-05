@@ -132,6 +132,13 @@ class User : public Accounts
         password = input;
 
     }
+    
+    string printToFile ()
+   {
+      string info;
+      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address;
+      return info;
+   }
 
     CheckingAccount getChecking()
     {
