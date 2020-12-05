@@ -88,11 +88,11 @@ class User : public Accounts
             {
                 case 1:
                 {
-                    checking.Menu(date);
+                    checking.Menu(date,number);
                 }
                 case 2:
                 {
-                    savings.Menu(date);
+                    savings.Menu(date, number);
                 }
                 case 3:
                 {
