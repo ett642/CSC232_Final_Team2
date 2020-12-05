@@ -111,5 +111,16 @@ public:
 	//deposit and withdraw from a user account with permission
 	
 	//Search Account by name, number, and phone number
+	
+	
+	
+	void changeStatus(){
+		if(s == "t"){
+			s ="f";
+		else{
+			s="t";
+		}
+		createStatus(s);
+	}
 };
 #endif
