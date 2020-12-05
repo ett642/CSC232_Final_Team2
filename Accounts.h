@@ -37,14 +37,21 @@ public:
 	virtual string printToFile(){
 		return "";
 	}
-	vitual void changeCheckingStat(){
+   
+	virtual void changeCheckingStat(){
 		
 	}
+   
 	virtual void changeSavingsStat(){
 	
 	}
+   
 	virtual void changeCDStat(){
 		
 	}
+        virtual void changeStatus(){
+		
+	}
+   
 };
 #endif
