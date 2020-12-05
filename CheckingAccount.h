@@ -2,13 +2,14 @@
 #define CHECKINGACCOUNT_H
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "AbAccount.h"
 #include <limits>
 using namespace std;
 
 class CheckingAccount : public AbAccount 
 {
-   protected:
+   public:
    bool flag;
    
    // Default constructor
@@ -23,11 +24,14 @@ class CheckingAccount : public AbAccount
    }
    
    //function for logged in menu
-   void loggedIn(string date)
+   void Menu(string date)
    {
-	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
+	if(!status){
+		cout<<"You don't have a checking account! Contact a Bank Official to open one.\n";
+		return;
+	}
 	lastDate = date;
-   for(;;) { // menu for  loop
+	for(;;) { // menu for  loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
                     cout << "[1] Deposit Funds" << endl;
@@ -45,7 +49,7 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           long double depositAmt;
                           cin >> depositAmt;
-                          deposit(depositAmt);
+                          deposit(depositAmt, date);
                           
                           //deposit amount using depositAmt?
                           
@@ -64,7 +68,7 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           long double withdrawAmt;
                           cin >> withdrawAmt;
-                          withdraw(withdrawAmt);
+                          withdraw(withdrawAmt, date);
                           
                           //withdraw amount using withdrawAmt?
                           
@@ -104,7 +108,7 @@ class CheckingAccount : public AbAccount
                  }
     }
 
-    void deposit(long double amount) 
+    void deposit(long double amount, string date) 
     {
         if(amount > 0.00) 
         {
@@ -126,7 +130,7 @@ class CheckingAccount : public AbAccount
          }    
      }
      
-    void withdraw(long double amount) 
+    void withdraw(long double amount, string date) 
     {
        if(amount < 0.00) {
           cout << "Invalid withdraw" << endl;
@@ -152,6 +156,28 @@ class CheckingAccount : public AbAccount
             cout << "Your balance fell below $0.";
          }
        }
-    } 
+    }
+	
+	string changeStatus(){
+		if(status){
+			return "t";
+		}
+		return "f";
+	}
+	
+	string printToFile ()
+   {
+      string info;
+      info = to_string(balance)+"*"+changeStatus();
+      return info;
+   }
+   
+   void fileInfo(double bal, string stat){
+	   balance = bal;
+		if(stat == "t")
+			status = true;
+		else
+			status = false; 
+   }
 };
 #endif
