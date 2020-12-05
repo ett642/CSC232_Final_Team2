@@ -21,9 +21,10 @@ class User : public Accounts
 
     public:
 
-    User(  string num, string pass, string inName, string date, vector<string> transactions) : Accounts( num,  pass,  inName,  date)
+    User(string num, string pass, string inName, string date, string inPhone, string inAddress) : Accounts(num, pass, inName, date)
     {
-        transactions.clear();
+        phone = inPhone;
+	address = inAddress;
     }
 
     void loggedIn(string date){
