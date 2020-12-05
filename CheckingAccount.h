@@ -108,11 +108,14 @@ class CheckingAccount : public AbAccount
                  }
     }
 
-    void deposit(long double amount, string date) 
+    void deposit(long double amount, string number, string date) 
     {
         if(amount > 0.00) 
         {
             balance += amount; // deposit the amount
+			fstream file; file.open(number+"transactions.txt");
+			file<<date+"*Deposited "<<amount<<" into checking."<<endl;
+			file.close();
         }
         else 
         {
@@ -130,7 +133,7 @@ class CheckingAccount : public AbAccount
          }    
      }
      
-    void withdraw(long double amount, string date) 
+    void withdraw(long double amount, string number, string date) 
     {
        if(amount < 0.00) {
           cout << "Invalid withdraw" << endl;
@@ -147,6 +150,9 @@ class CheckingAccount : public AbAccount
        if(balance >= amount) 
        {
          balance -= amount; // subtract the amount if it's in the balance
+		 fstream file; file.open(number+"transactions.txt");
+		 file<<date+"*Withdrew "<<amount<<" from checking."<<endl;
+		 file.close();
        }
        else 
        {
