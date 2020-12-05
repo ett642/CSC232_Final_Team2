@@ -20,8 +20,6 @@ class User : public Accounts
 
 
     public:
-    void accMenu(string date);
-    void changePass();
 
     User(  string num, string pass, string inName, string date, vector<string> transactions) : Accounts( num,  pass,  inName,  date)
     {
