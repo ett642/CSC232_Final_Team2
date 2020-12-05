@@ -24,7 +24,7 @@ class CheckingAccount : public AbAccount
    }
    
    //function for logged in menu
-   void Menu(string date)
+   void Menu(string date, string number)
    {
 	if(!status){
 		cout<<"You don't have a checking account! Contact a Bank Official to open one.\n";
@@ -49,7 +49,7 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           long double depositAmt;
                           cin >> depositAmt;
-                          deposit(depositAmt, date);
+                          deposit(depositAmt, number, date);
                           
                           //deposit amount using depositAmt?
                           
@@ -68,7 +68,7 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           long double withdrawAmt;
                           cin >> withdrawAmt;
-                          withdraw(withdrawAmt, date);
+                          withdraw(withdrawAmt, number, date);
                           
                           //withdraw amount using withdrawAmt?
                           
@@ -127,7 +127,7 @@ class CheckingAccount : public AbAccount
                 cout << "Please enter a valid deposit: " << endl;
                 double amt;
                 cin >> amt;
-                deposit(amt);
+                deposit(amt, number, date);
                 break;
              }
          }    
@@ -143,7 +143,7 @@ class CheckingAccount : public AbAccount
                 cout << "Please enter a valid withdraw: " << endl;
                 double amt;
                 cin >> amt;
-                withdraw(amt);
+                withdraw(amt, number, date);
                 break;
             }
        }
