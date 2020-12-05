@@ -26,6 +26,7 @@ public:
 	}
 	
 	void loggedIn(string date, vector<Accounts> &logins){
+		lastDate = date;
 		if(status){
 			cout<<"Status: Active"<<endl;
 		}
@@ -164,7 +165,7 @@ public:
 											cout << "-------------------" << endl;
 											long double depositAmt;
 											cin >> depositAmt;
-											c.deposit(depositAmt);
+											c.deposit(depositAmt, i.getNumber(), lastDate);
 										}
 										case 2:
 										{
@@ -173,7 +174,7 @@ public:
 											cout << "-------------------" << endl;
 											long double withdrawAmt;
 											cin >> withdrawAmt;
-											c.withdraw(withdrawAmt);
+											c.withdraw(withdrawAmt, i.getNumber(), lastDate);
 										}
 										case 3:
 										{
@@ -209,7 +210,7 @@ public:
 											cout << "-------------------" << endl;
 											long double depositAmt;
 											cin >> depositAmt;
-											s.deposit(depositAmt);
+											s.deposit(depositAmt, i.getNumber(), lastDate);
 										}
 										case 2:
 										{
@@ -218,7 +219,7 @@ public:
 											cout << "-------------------" << endl;
 											long double withdrawAmt;
 											cin >> withdrawAmt;
-											s.withdraw(withdrawAmt);
+											s.withdraw(withdrawAmt, i.getNumber(), lastDate);
 										}
 										case 3:
 										{
