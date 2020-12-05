@@ -69,6 +69,11 @@ class AbAccount
                 }
             }
         }
+
+        bool getStatus()
+        {
+            return status;
+        }
 		
 		void setInterest(double interest){
 			interestRate = interest;
