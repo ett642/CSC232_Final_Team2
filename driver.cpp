@@ -102,7 +102,7 @@ void loginSearch(string number, string password, vector<Accounts> &logins, strin
 	for(Accounts &i: logins){
 		if(number == i.getNumber() and password == i.getPassword()){
 			cout<<"Logged in."<<endl;
-			i.loggedIn(date, logins)
+			i.loggedIn(date, logins);
 			updateFile(logins);
 			return;
 		}
@@ -131,13 +131,16 @@ main(){
 				cout<<"Enter your login password: ";
 				cin>>password;
 				loginSearch(loginNum,password,logins,date);
-				break;
+				continue;
 			case 2:
 				cout<<"Goodbye!";
 				check = false;
-				break;
+				continue;
 			default:
 				cout<<"Incorrect option. Please try again."<<endl;
+				cin.clear();
+                cin.ignore();
+                continue;
 		}
 	}
 	
