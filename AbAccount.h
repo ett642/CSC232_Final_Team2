@@ -54,20 +54,33 @@ class AbAccount
 
         void setStatus()
         {
-            int input;
-            cout << "1 to activate account.\n" << "2 to deactivate account.\n";
-            cin >> input;
-            switch(input)
-            {
-                case 1:
-                {
-                    status = true;
-                }
-                case 2:
-                {
-                    status = false;
-                }
-            }
+			while(true){
+				int input;
+				cout << "1 to activate account.\n" << "2 to deactivate account.\n";
+				cin >> input;
+				switch(input)
+				{
+					case 1:
+					{
+						status = true;
+						cout<<"Account status changed to true!\n\n";
+						return;
+					}
+					case 2:
+					{
+						status = false;
+						cout<<"Account status changed to false!\n\n";
+						return;
+					}
+					default: // error catching
+					{ 
+						cout << "Try another input!" << endl;
+						cin.clear();
+						cin.ignore();
+						continue;
+					}
+				}
+			}
         }
 
         bool getStatus()
