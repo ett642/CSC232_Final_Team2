@@ -215,8 +215,15 @@ class User : public Accounts
 		*year = stoi(date);
 	}
 	
-	void editUser(){
-		
-	}
+   void changePhone(string inPhone)
+   {
+      phone = inPhone;
+   }
+   
+   void changeAddress(string inAddress)
+   {
+      address = inAddress;
+   }
+   
 };
 #endif
