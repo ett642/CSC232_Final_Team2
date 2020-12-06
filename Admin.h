@@ -23,11 +23,11 @@ class Admin : public Accounts
    }
    
    //function for logged in menu
-	void loggedIn(string date, vector<Accounts> &logins)
+	void loggedIn(string date, vector<Official> &official, vector<User> &user)
    {
 	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
 	lastDate = date;
-   for(;;) { // menu for  loop
+	while(true){ // menu for  loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
                     cout << "[1] Create a Bank Official profile" << endl;
@@ -70,7 +70,7 @@ class Admin : public Accounts
                                 cin >> pass; 
                                 
                                 Official temp = Official(num, pass, inName, date, "t");
-                                logins.push_back(temp);
+                                official.push_back(temp);
                                 continue;
                           } 
                           else
@@ -90,7 +90,7 @@ class Admin : public Accounts
 						        string num;
                           cin >> num;
                           
-                          for(Accounts &i: logins)
+                          for(Official &i: official)
                           {
       		                 cout << "-------------------" << endl;
                              cout << "Change this Bank Official's Status? Y/N" << endl;
@@ -140,13 +140,15 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Enter Customer Address" << endl;
                           cout << "-------------------" << endl;
+						  cin.clear();
+                          cin.ignore();
                           string address;
-                          cin >> address; 
+                          getline(cin,address); 
     
                           cout << "-------------------" << endl;
                           cout << "Enter Customer Profile Number (First Digit Within 2-9)" << endl;
                           cout << "-------------------" << endl;
-						        string num;
+						  string num;
                           cin >> num;
                           if (num[0] != '1' && num[0] != '0')
                           {
@@ -157,7 +159,7 @@ class Admin : public Accounts
                                 cin >> pass;  
                                 
                                 User temp = User(num, pass, inName, date, phone, address);
-                                logins.push_back(temp);
+                                user.push_back(temp);
                                 continue;
                           } 
                           else
@@ -177,7 +179,7 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
 						        string num;
                           cin >> num;
-		                    for(Accounts &i: logins)
+		                    for(User &i: user)
                           {
    		                    if(i.getNumber() == num)
                              cout << "-------------------" << endl;
@@ -188,7 +190,7 @@ class Admin : public Accounts
                              if(answer == "Y" || answer == "y")
                              {
                                int count = 0;
-                               for(Accounts &j: logins)
+                               for(User &j: user)
                                {
                                  if(num == j.getNumber())
                                  {
@@ -196,7 +198,7 @@ class Admin : public Accounts
                                  }
                                  count++;
                                }
-                               logins.erase(logins.begin() + count);
+                               user.erase(user.begin() + count);
                              }
                              else if(answer == "N" || answer == "n")
                              {
@@ -218,7 +220,7 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
 						        string num;
                           cin >> num;
-		                    for(Accounts &i: logins)
+		                    for(User &i: user)
                           {
    		                    if(i.getNumber() == num)                 
                              cout << "-------------------" << endl;
@@ -251,7 +253,7 @@ class Admin : public Accounts
                                       string lastname;
                                       cin >> lastname;
                                       string inName = lastname + " " + firstname;
-                                      for(Accounts &i: logins)
+                                      for(User &i: user)
                                       {
                                               i.changeName(inName);
                                               cout << "Name Successfully Changed" << endl;
@@ -266,7 +268,7 @@ class Admin : public Accounts
                                       cout << "Enter New Phone Number: " << endl;
                                       string phoneNumber;
                                       cin >> phoneNumber;
-                                      for(Accounts &i: logins)
+                                      for(User &i: user)
                                       {
                                               cout << "Phone Number Successfully Changed" << endl;
                                               cout << "Returning to Edit Menu" << endl;
@@ -278,13 +280,10 @@ class Admin : public Accounts
                                     
                                    case 3: 
                                    {
-                                      cout << "Enter New Password: " << endl;
-                                      string password;
-                                      cin >> password;
+                                      i.changePass();
 
                                       cout << "Password Successfully Changed" << endl;
                                       cout << "Returning to Edit Menu" << endl;
-                                      i.changePass(password);
                                       continue;
                                     }
                                     
@@ -293,7 +292,7 @@ class Admin : public Accounts
                                       cout << "Enter New Address: " << endl;
                                       string newAddress;
                                       cin >> newAddress;
-                                      for(Accounts &i: logins)
+                                      for(User &i: user)
                                       {
                                               cout << "Address Successfully Changed" << endl;
                                               cout << "Returning to Edit Menu" << endl;
@@ -321,7 +320,7 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           cout << "Returning to Main Menu..." << endl;
                           cout << "-------------------" << endl;
-                          break;
+                          return;
                         }
                         
                         default: 
@@ -334,11 +333,10 @@ class Admin : public Accounts
                      }
                  }
              }
-          
-   string printToFile(string num, string pass, string inName, string date)
+   string printToFile()
    {
       string info;
-      info = num+"*"+pass+"*"+inName+"*"+date;
+      info = number+"*"+password+"*"+name+"*"+lastDate;\
       return info;
    
    } 
