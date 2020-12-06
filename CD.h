@@ -257,7 +257,7 @@ class CD : public AbAccount {
 	   balance = bal;
 	   cout<<balance<<endl;
 	   maturityDate = term;
-	   cout<<maturityDate<<endl;2
+	   cout<<maturityDate<<endl;
 		if(stat == "t"){
 			status = true;
 		}
