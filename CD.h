@@ -255,9 +255,7 @@ class CD : public AbAccount {
 
 	void fileInfo(double bal, string stat, string term){
 	   balance = bal;
-	   cout<<balance<<endl;
 	   maturityDate = term;
-	   cout<<maturityDate<<endl;
 		if(stat == "t"){
 			status = true;
 		}
