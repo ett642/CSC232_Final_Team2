@@ -143,7 +143,7 @@ class User : public Accounts
 	string printToFile ()
 	{
       string info;
-      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address+"*"+checking.printToFile()+"*"+savings.printToFile();
+      info = number+"*"+password+"*"+name+"*"+lastDate+"*"+phone+"*"+address+"*"+checking.printToFile()+"*"+savings.printToFile()+"*"+cd.printToFile();
       return info;
 	}
    
@@ -163,7 +163,7 @@ class User : public Accounts
     }
 	
 	void fileInput(string text){
-		double bal; string stat; double interest;
+		double bal; string stat; double interest; string term;
 		bal = stod(text.substr(0, text.find("*")));
 		text = text.substr(text.find("*")+1);
 		
@@ -178,9 +178,20 @@ class User : public Accounts
 		stat = text.substr(0, text.find("*"));
 		text = text.substr(text.find("*")+1);
 		
-		interest = stod(text);
+		interest = stod(text.substr(0, text.find("*")));
+		text = text.substr(text.find("*")+1);
 		
 		savings.fileInfo(bal, stat, interest);
+		
+		bal = stod(text.substr(0, text.find("*")));
+		text = text.substr(text.find("*")+1);
+		
+		stat = text.substr(0, text.find("*"));
+		text = text.substr(text.find("*")+1);
+		
+		term = text;
+		
+		cd.fileInfo(bal, stat, term);
 	}
 	
 	void transactionFile(string date){
@@ -202,6 +213,10 @@ class User : public Accounts
 		*day = stoi(date.substr(0,date.find("/")));
 		date = date.substr(date.find("/")+1);
 		*year = stoi(date);
+	}
+	
+	void editUser(){
+		
 	}
 };
 #endif
