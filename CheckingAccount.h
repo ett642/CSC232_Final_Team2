@@ -31,36 +31,33 @@ class CheckingAccount : public AbAccount
 		return;
 	}
 	lastDate = date;
-	for(;;) { // menu for  loop
-                    cout << "-------------------" << endl;
-                    cout << "What would you like to do? \n" << endl;
-                    cout << "[1] Deposit Funds" << endl;
-                    cout << "[2] Withdraw Funds" << endl;
-                    cout << "[3] Check Account Balance" << endl;
-                    cout << "[4] Return to Main Menu" << endl;
-                    cout << "-------------------" << endl;
-                    int userInput;
-                    cin >> userInput;
-                    switch(userInput) {
-                       case 1: 
-                       {
-                          cout << "-------------------" << endl;
-                          cout << "How much would you like to deposit?" << endl;
-                          cout << "-------------------" << endl;
-                          long double depositAmt;
-                          cin >> depositAmt;
-                          deposit(depositAmt, number, date);
-                          
-                          //deposit amount using depositAmt?
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Your new balance is: " << balance << endl;
-                          cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
-                          continue;
-                       }
+	while(true) { // menu for  loop
+        cout << "-------------------" << endl;
+        cout << "What would you like to do? \n" << endl;
+		cout << "[1] Deposit Funds" << endl;
+		cout << "[2] Withdraw Funds" << endl;
+		cout << "[3] Check Account Balance" << endl;
+		cout << "[4] Return to Main Menu" << endl;
+		cout << "-------------------" << endl;
+		int userInput;
+		cin >> userInput;
+		switch(userInput) {
+			case 1: 
+			{
+				  cout << "-------------------" << endl;
+				  cout << "How much would you like to deposit?" << endl;
+				  cout << "-------------------" << endl;
+				  long double depositAmt;
+				  cin >> depositAmt;
+				  deposit(depositAmt, number, date);
+				  
+				  //deposit amount using depositAmt?
+				  
+				  cout << "-------------------" << endl;
+				  cout << "Your new balance is: " << balance << endl;
+				  cout << "-------------------" << endl;
+				  continue;
+			}
                        case 2: 
                        {
                           cout << "-------------------" << endl;
@@ -75,9 +72,6 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           cout << "Your new balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 3:
@@ -85,9 +79,6 @@ class CheckingAccount : public AbAccount
                           cout << "-------------------" << endl;
                           cout << "Your Current Balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 4:
@@ -105,7 +96,7 @@ class CheckingAccount : public AbAccount
                           continue;
                        }
                     }
-                 }
+        }
     }
 
     void deposit(long double amount, string number, string date) 
@@ -166,9 +157,13 @@ class CheckingAccount : public AbAccount
 	
 	string changeStatus(){
 		if(status){
+			cout<<"returned t\n";
 			return "t";
 		}
-		return "f";
+		else{
+			cout<<"returned f\n";
+			return "f";
+		}
 	}
 	
 	string printToFile ()
@@ -185,5 +180,6 @@ class CheckingAccount : public AbAccount
 		else
 			status = false; 
    }
+   
 };
 #endif
