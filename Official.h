@@ -241,8 +241,49 @@ public:
 							}
 							case 3:
 							{
-								//add CD when CD is complete
+                        					cd = i.getCD();
+   								cout << "[1]Open a CD\n" << "[2] Close a CD" << "3 to Cancel";
+   								cin >> sNum;
+   								for(;;)
+   								{
+   									switch(sNum)
+   									{
+   										case 1:
+   										{
+   											cout << "-------------------" << endl;
+   											cout << "How much would you like to deposit?" << endl;
+   											cout << "-------------------" << endl;
+   											long double depositAmt;
+                                    							cin >> depositAmt;
+                                    							cd.open(depositAmt, lastDate);
+   										}
+   										case 2:
+   										{
+   										   cout << "-------------------" << endl;
+										   cout << "The CD is now closed." << endl;
+										   cout << "-------------------" << endl;
+										   cd.close(lastDate);
+   										}
+   										case 3:
+   										{
+   											cout << "-------------------" << endl;
+   											cout << "Exiting Menu... " << endl;
+   											cout << "-------------------" << endl;
+   											return;
+   										}
+   											
+   										default: // error catching
+   										{ 
+   											cout << "Try another input!" << endl;
+   											cin.clear();
+   											cin.ignore();
+   											continue;
+   										}
+   									}
+   								}
+
 							}
+                     
 							case 4:
 							{
 								cout << "-------------------" << endl;
@@ -296,7 +337,8 @@ public:
 		if(stat == "t"){
 			stat ="f";
 		}
-		else{
+		else
+      {
 			stat="t";
 		}
 		createStatus(stat);
