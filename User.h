@@ -32,7 +32,7 @@ class User : public Accounts
 		file.close();
     }
 
-	void loggedIn(string date){
+	void loggedIn(string date, vector<Accounts> &logins){
 		cout << "Successfully logged in! Last login was " << lastDate << endl;
 		lastDate = date;
         int userInput;
