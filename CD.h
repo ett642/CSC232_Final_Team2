@@ -11,26 +11,31 @@ using namespace std;
 // AbAccount class
 
 class CD : public AbAccount {
-    public:
-    double maturityDate;
-    double rate;
-    bool flag;
+    private:
+    string maturityDate;
+    double rate = 0.1;
     
+    public:
     // Constructor
     CD (): AbAccount()
     {
 
     }
+    
    //function for logged in menu
    void menu(string date)
    {
-   //implement interest rate here from the difference between last date and current date
-	lastDate = date;
+   if(!status)
+   {
+   cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
+   return;	
+   }
+   lastDate = date;
    for(;;) { // menu for  loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
                     cout << "[1] Open a CD" << endl;
-                    cout << "[2] Withdraw Funds from an Existing CD" << endl;
+                    cout << "[2] Close Existing CD" << endl;
                     cout << "[3] Check CD Info" << endl;
                     cout << "[4] Return to Main Menu" << endl;
                     cout << "-------------------" << endl;
@@ -44,15 +49,14 @@ class CD : public AbAccount {
                           cout << "-------------------" << endl;
                           long double depositAmt;
                           cin >> depositAmt;
-                          open(depositAmt);
+                          open(depositAmt, lastDate);
                           
                           //deposit amount using depositAmt?
                           
                           cout << "-------------------" << endl;
                           cout << "Your CD balance is: " << balance << endl;
-                          cout << "Maturity Date: " << endl; //put maturityDate variable here
-                          cout << "Days Remaining: " << endl; // put termLength variable here
-                          cout << "Annual Interest Rate: " << endl;//put rate variable here
+                          cout << "Maturity Date: " << maturityDate << endl; //put maturityDate variable here
+                          cout << "Monthly Interest Rate: " << rate << endl;//put rate variable here
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           cout << "-------------------" << endl;
@@ -63,17 +67,7 @@ class CD : public AbAccount {
                        case 2: 
                        {
                           cout << "-------------------" << endl;
-                          cout << "How much would you like to Withdraw?" << endl;
-                          cout << "-------------------" << endl;
-                          long double withdrawAmt;
-                          cin >> withdrawAmt;
-                          withdraw(withdrawAmt);
-                          
-                          //withdraw amount using withdrawAmt?
-                          //fix withdraw function and work on how to close CD account
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Your CD is now closed" << endl;
+                          cout << "Your CD is now closed. You recieved $" << close(lastDate) << endl;
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           cout << "-------------------" << endl;
@@ -84,10 +78,9 @@ class CD : public AbAccount {
                        case 3:
                        {
                           cout << "-------------------" << endl;
-                          cout << "Your Current CD Balance is: " << balance << endl;
-                          cout << "Maturity Date: " << endl; //put maturityDate variable here
-                          cout << "Days Remaining: " << endl;//put termLength variable here
-                          cout << "Interest Rate: " << endl;//put rate varaible here
+                          cout << "Your Initial Deposit was: " << balance << endl;
+                          cout << "Maturity Date: " << maturityDate << endl; //put maturityDate variable here
+                          cout << "Monthly Interest Rate: " << rate << endl;//put rate varaible here
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           cout << "-------------------" << endl;
@@ -117,11 +110,13 @@ class CD : public AbAccount {
    
   
    //function to open a CD
-   void open(double amount) 
+   void open(double amount, string date) 
    {
       if(amount > 0.00) //if the amount deposited is more than 0 
       {
-         balance += amount;//successfully deposit
+         balance += amount; //successfully deposit
+         maturityDate = maturityCalc(date);
+         
       }
       else //if the deposit is not a positive amount it will not deposit
       {
@@ -133,66 +128,129 @@ class CD : public AbAccount {
             cout << "Please enter a valid deposit: "<< endl; //prompts user to enter a valid deposit
             double amt;
             cin >> amt;
-            open(amt);
+            open(amt,date);
             break;
          }
       }
-      if(balance >= 0.0) //if the balance is greater than $0 the status will remain open 
-      {
-         status = true;
-      }
+
    }
    
-   void close(double amount) //function to withdraw money and close the account
+   double close(string date) //function to withdraw money and close the account
    {
-       if(status == false) 
-        { // withdraw with penalty
+       if(!status) 
+       {
+            cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
+            return 0;	
+       }
             cout << "Warning! Your withdrawl will incur a penalty, your Certificate of Deposit balance is: $" << balance << endl;
             cout << "You must wait until the maturity date to withdraw your funds with no penalty " << endl;
-        }
-        else if (status == true) 
-        { // do the withdraw from the balance with no penalty
-            if(balance >= amount) 
+            
+            int month = stoi(date.substr(0,date.find("/")));
+      		string temp = date.substr(date.find("/")+1);
+      		int day = stoi(date.substr(0,date.find("/")));
+            temp = date.substr(date.find("/")+1);
+		      int year = stoi(date);
+            
+            int maturityMonth = stoi(maturityDate.substr(0,maturityDate.find("/")));
+            temp = maturityDate.substr(maturityDate.find("/")+1);
+            int maturityDay = stoi(maturityDate.substr(0,maturityDate.find("/")));
+            temp = maturityDate.substr(maturityDate.find("/")+1);
+            int maturityYear = stoi(maturityDate);
+            
+            if (month > maturityMonth)
             {
-                balance -= amount; 
+               maturityMonth += 12;
             }
-            else 
+            int monthsLeft = maturityMonth - month;
+            
+            if (maturityYear < year)
             {
-                cout << "Invalid funds " << endl;
+            //successful
+            calcInt();
+            double tempBalance = balance;
+            resetCD();
+            return tempBalance;
             }
-            if(balance < 0.0)// if the balance falls below $0 account becomes inactive 
+            
+            else if (maturityYear == year)
             {
-                cout << "Warning! You cannot withdraw your Certificate of Deposit has fallen below $0.00. " << endl;
-                cout << "You must deposit more money and wait until the maturity date before you can make another withdraw without penalty." << endl;
-                status = false;
+               if(monthsLeft > 3)
+               {
+                  //successful
+                  calcInt();
+                  double tempBalance = balance;
+                  resetCD();
+                  return tempBalance;
+               }
+               else if(monthsLeft == 3)
+               {
+                  if(maturityDay <= day)
+                  {
+                     //successful
+                     calcInt();
+                     double tempBalance = balance;
+                     resetCD();
+                     return tempBalance;
+                  }
+               }
             }
-        }
+            //interest penalty
+            if(monthsLeft == 3)
+            {
+               double tempBalance = balance - (balance * 0.4);
+               resetCD();
+               return tempBalance;
+            }
+            //interest penalty
+            else if(monthsLeft == 2)
+            {
+               double tempBalance = balance - (balance * 0.2);
+               resetCD();
+               return tempBalance;
+            }
+            //interest penalty
+            else
+            {
+               double tempBalance = balance - (balance * 0.1);
+               resetCD();
+               return tempBalance;
+            }             
+            
     }
     
     void calcInt()// calculates current interest based on CD's fixed annual rate
     {
-       double dailyRate = rate / 365;
-       dailyRate = dailyRate * balance;
-       balance += dailyRate;
+       double monthlyRate = rate / 12;
+       monthlyRate = 3 * (monthlyRate * balance);
+       balance += monthlyRate;
     }  
     
     //function to determine when the maturity date of the CD is
-    //string maturityCalc(string date)
-   // {
+    string maturityCalc(string date)
+    {
       //take the current date and change the month variable to be 3 months later
+      int month = stoi(date.substr(0,date.find("/")));
+		string temp = date.substr(date.find("/")+1);
+		int day = stoi(date.substr(0,date.find("/")));
+      temp = date.substr(date.find("/")+1);
+      int year = stoi(date);
       
-      //return the result as a string variable "maturityDate"
+      month += 3;
+      if (month > 12)
+      {
+         month -= 12;
+         year += 1;
+      }
+      string mDate = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+      return mDate;  //return the result as a string variable "maturityDate"
       
-   // }
+    }
     
-    //function to determine days until maturity date here
-   // double timeLeft(double maturityDate)
-   // {
-      //take today's date and the maturity date
-      //find the difference between them in days
-      // return variable named "termLength" which is the number of days between the current date
-      // and the maturity date.
-   // }
+    void resetCD()
+    {
+      balance = 0;
+      status = false;
+    }
     
        
 };
