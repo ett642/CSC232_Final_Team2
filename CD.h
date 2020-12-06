@@ -12,7 +12,7 @@ using namespace std;
 
 class CD : public AbAccount {
     private:
-    string maturityDate;
+    string maturityDate = "1/1/2000";
     double rate = 0.1;
     
     public:
@@ -116,6 +116,7 @@ class CD : public AbAccount {
       {
          balance += amount; //successfully deposit
          maturityDate = maturityCalc(date);
+		 status = true;
          
       }
       else //if the deposit is not a positive amount it will not deposit
@@ -251,7 +252,27 @@ class CD : public AbAccount {
       balance = 0;
       status = false;
     }
-    
-       
+
+	void fileInfo(double bal, string stat, string term){
+	   balance = bal;
+	   cout<<balance<<endl;
+	   maturityDate = term;
+	   cout<<maturityDate<<endl;2
+		if(stat == "t"){
+			status = true;
+		}
+		else{
+			status = false;
+		}
+	}
+	
+	string printToFile(){
+		string info; string stat = "f";
+		if(status){
+			stat = "t";
+		}
+		info = to_string(balance)+"*"+stat+"*"+maturityDate;
+		return info;
+	}
 };
 #endif
