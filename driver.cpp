@@ -15,11 +15,8 @@ Project done by Ethan Tanner, Ethan Dawley, and Christian Leslie
 */
 
 string getDate(){
-	time_t timeNow = time(0);
-
-       
+	time_t timeNow = time(0);   
     tm *localTime = localtime(&timeNow);
-
     return to_string(1 + localTime->tm_mon) +"/"+to_string(localTime->tm_mday)+"/"+ to_string(1900 + localTime->tm_year);
 }
 
@@ -101,10 +98,11 @@ void updateFile(vector<Accounts> &logins){
 	fromFile(logins);
 }
 
-void loginSearch(string number, string password, vector<Accounts> &logins){
+void loginSearch(string number, string password, vector<Accounts> &logins, string date){
 	for(Accounts &i: logins){
 		if(number == i.getNumber() and password == i.getPassword()){
 			cout<<"Logged in."<<endl;
+			i.loggedIn(date, logins)
 			updateFile(logins);
 			return;
 		}
@@ -132,7 +130,7 @@ main(){
 				cin>>loginNum;
 				cout<<"Enter your login password: ";
 				cin>>password;
-				loginSearch(loginNum,password,logins);
+				loginSearch(loginNum,password,logins,date);
 				break;
 			case 2:
 				cout<<"Goodbye!";
