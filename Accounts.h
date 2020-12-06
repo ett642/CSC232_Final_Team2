@@ -22,7 +22,7 @@ public:
 		lastDate = date;
 	}
 	
-	virtual void loggedIn(string date, vector<Accounts> &logins){
+	virtual void loggedIn(string date){
 		cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
 		lastDate = date;
 	}
@@ -87,5 +87,24 @@ public:
 	virtual string printToFile(){
 		return "";
 	}
+   
+   void changeName(string inName){
+   name = inName;
+   }
+   
+   void changePass(string pass){
+   password = pass;  
+   }
+   
+   virtual void changePhone(string phone){
+   
+   }
+   
+   virtual void changeAddress(string address){
+  
+   }
+   
+   
+   
 };
 #endif
