@@ -20,14 +20,17 @@ string getDate(){
     return to_string(1 + localTime->tm_mon) +"/"+to_string(localTime->tm_mday)+"/"+ to_string(1900 + localTime->tm_year);
 }
 
-void fromFile(vector<Accounts> &logins){
-	fstream file; string num; string pass; string name; string lastDate; string text;
-	logins.clear();
+void fromFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){
+	ifstream file; string num; string pass; string name; string lastDate; string info;
+	admin.clear();
+	official.clear();
+	user.clear();
 	file.open("logins.txt");
 	if(file){
 		cout<<"Reading from file..."<<endl;
-		while(getline(file,text)){
-			if(text[0] == '0'){
+		while(getline(file,info)){
+			if(info[0] == '0'){
+				string text = info;
 				num = text.substr(0, text.find("*"));
 				text = text.substr(text.find("*")+1);
 
@@ -39,10 +42,10 @@ void fromFile(vector<Accounts> &logins){
 
 				lastDate = text;
 				Admin temp = Admin(num,pass,name,lastDate);
-				logins.push_back(temp);
+				admin.push_back(temp);
 			}
-			else if(text[1] == '1'){
-				string status;
+			else if(info[0] == '1'){
+				string status; string text = info;
 				num = text.substr(0, text.find("*"));
 				text = text.substr(text.find("*")+1);
 				
@@ -57,10 +60,10 @@ void fromFile(vector<Accounts> &logins){
 				
 				status = text;
 				Official temp = Official(num,pass,name,lastDate,status);
-				logins.push_back(temp);
+				official.push_back(temp);
 			}
 			else{
-				string phone; string address;
+				string phone; string address; string text = info;
 				num = text.substr(0, text.find("*"));
 				text = text.substr(text.find("*")+1);
 				
@@ -81,47 +84,78 @@ void fromFile(vector<Accounts> &logins){
 				
 				User temp = User(num,pass,name,lastDate,phone,address);
 				temp.fileInput(text);
-				logins.push_back(temp);
+				user.push_back(temp);
 			}
 		}
 	}
 	file.close();
 }
 
-void updateFile(vector<Accounts> &logins){
-	fstream file; file.open("logins.txt",fstream::trunc);
-	cout<<"Updating file...\n";
-	for(Accounts &i: logins){
+void updateFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){
+	ofstream file; file.open("logins.txt",ofstream::trunc);
+	cout<<endl<<"Updating file...\n";
+	for(Admin &i: admin){
+		file<<i.printToFile()<<endl;
+	}
+	for(Official &i: official){
+		file<<i.printToFile()<<endl;
+	}
+	for(User &i: user){
 		file<<i.printToFile()<<endl;
 	}
 	file.close();
-	fromFile(logins);
+	fromFile(admin,official,user);
 }
 
-void loginSearch(string number, string password, vector<Accounts> &logins, string date){
-	for(Accounts &i: logins){
-		if(number == i.getNumber() and password == i.getPassword()){
-			cout<<"Logged in."<<endl;
-			i.loggedIn(date, logins);
-			updateFile(logins);
-			return;
+void loginSearch(string number, string password, vector<Admin> &admin, vector<Official> &official, vector<User> &user, string date){
+		if(number[0] == '0'){
+			for(Admin &i: admin){
+				if(number == i.getNumber() and password == i.getPassword()){
+				cout<<"Logged in."<<endl;
+				i.loggedIn(date, official, user);
+				updateFile(admin,official,user);
+				return;
+				}
+			}
 		}
-	}
+		else if(number[0] == '1'){
+			for(Official &i: official){
+				if(number == i.getNumber() and password == i.getPassword()){
+				cout<<"Logged in."<<endl;
+				i.loggedIn(date, user);
+				updateFile(admin,official,user);
+				return;
+				}
+			}
+		}
+		else{
+			for(User &i: user){
+				if(number == i.getNumber() and password == i.getPassword()){
+				cout<<"Logged in."<<endl;
+				i.loggedIn(date);
+				updateFile(admin,official,user);
+				return;
+				}
+			}
+		}
 	cout<<"Login not found.\n";
 	
 }
 
 main(){
-	vector<Accounts> logins;
+	vector<Admin> admin;
+	vector<Official> official;
+	vector<User> user;
+	
 	
 	string loginNum; string password;
 	string date = getDate();
 	cout<<date<<endl;
-	fromFile(logins);
+	fromFile(admin, official, user);
 	
-	cout<<"Welcome to Bear Bank!\n[1] Login\n[2] Exit"<<endl;
 	bool check = true;
 	while(check){
+		cout<<endl<<"Welcome to Bear Bank!\n[1] Login\n[2] Exit"<<endl;
 		cout<<endl<<"Choose an option: ";
 		int option; cin>>option;
 		switch(option){
@@ -130,7 +164,7 @@ main(){
 				cin>>loginNum;
 				cout<<"Enter your login password: ";
 				cin>>password;
-				loginSearch(loginNum,password,logins,date);
+				loginSearch(loginNum,password,admin,official,user,date);
 				continue;
 			case 2:
 				cout<<"Goodbye!";
