@@ -58,9 +58,6 @@ class SavingsAccount : public AbAccount {
                           cout << "-------------------" << endl;
                           cout << "Your new balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 2: 
@@ -77,9 +74,6 @@ class SavingsAccount : public AbAccount {
                           cout << "-------------------" << endl;
                           cout << "Your new balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 3:
@@ -87,9 +81,6 @@ class SavingsAccount : public AbAccount {
                           cout << "-------------------" << endl;
                           cout << "Your Current Balance is: " << balance << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 4:
@@ -178,7 +169,7 @@ class SavingsAccount : public AbAccount {
         }
     }
 
-string changeStatus(){
+	string changeStatus(){
 		if(status){
 			return "t";
 		}
