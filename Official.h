@@ -241,8 +241,8 @@ public:
 							}
 							case 3:
 							{
-                        					cd = i.getCD();
-   								cout << "[1]Open a CD\n" << "[2] Close a CD" << "3 to Cancel";
+                           cd = i.getCD();
+   								cout << "[1]Open a CD\n" << "[2] Close a CD" << "[3] to Cancel";
    								cin >> sNum;
    								for(;;)
    								{
@@ -254,15 +254,15 @@ public:
    											cout << "How much would you like to deposit?" << endl;
    											cout << "-------------------" << endl;
    											long double depositAmt;
-                                    							cin >> depositAmt;
-                                    							cd.open(depositAmt, lastDate);
+                                    cin >> depositAmt;
+                                    cd.open(depositAmt, lastDate);
    										}
    										case 2:
    										{
    										   cout << "-------------------" << endl;
-										   cout << "The CD is now closed." << endl;
-										   cout << "-------------------" << endl;
-										   cd.close(lastDate);
+                                    cout << "The CD is now closed." << endl;
+                                    cout << "-------------------" << endl;
+                                    cd.close(lastDate);
    										}
    										case 3:
    										{
