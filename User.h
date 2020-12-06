@@ -32,30 +32,34 @@ class User : public Accounts
 		file.close();
     }
 
-	void loggedIn(string date, vector<Accounts> &logins){
+	void loggedIn(string date){
 		cout << "Successfully logged in! Last login was " << lastDate << endl;
 		lastDate = date;
-        int userInput;
 
         for(;;)
         {
-            cout << "What would you like to do:\n" << "1 to access accounts:\n" << "2 to access change password:\n";
-            cout << "3 to access transactions:\n" << "4 to exit\n";
+            cout <<endl<< "What would you like to do\n" << "1 to access accounts\n" << "2 to access change password\n";
+            cout << "3 to access transactions\n" << "4 to exit\nChoose an option: ";
+			int userInput;
+			cin>>userInput;
             switch(userInput)
             {
                 case 1:
                 {
                     accMenu(date);
+					continue;
                 }
                 case 2:
                 {
                     changePass();
+					continue;
                 }
                 case 3:
                 {
                     cout<<"Enter the date to search from (MM/DD/YYYY) : ";
 					string inDate; cin>>inDate;
 					transactionFile(inDate);
+					continue;
                 }
                 
                 case 4:
@@ -81,8 +85,8 @@ class User : public Accounts
     void accMenu(string date)
     {
         int userInput;
-        cout << "What would you like to do:\n" << "1 to access Checking:\n" << "2 to access savings:\n";
-        cout << "3 to access CD:\n" << "4 to exit\n";
+        cout <<endl<< "What would you like to do\n" << "1 to access Checking\n" << "2 to access savings\n";
+        cout << "3 to access CD\n" << "4 to exit\n";
         cin >> userInput;
         for(;;)
         {
@@ -91,14 +95,17 @@ class User : public Accounts
                 case 1:
                 {
                     checking.Menu(date,number);
+					continue;
                 }
                 case 2:
                 {
                     savings.Menu(date, number);
+					continue;
                 }
                 case 3:
                 {
                     cd.menu(date);
+					continue;
                 }
                 case 4:
                 {
