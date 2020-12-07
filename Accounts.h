@@ -40,51 +40,23 @@ public:
 	{
 		return name;
 	}
-
-	virtual void changeCheckingStat()
-    	{
-        
-    	}
-
-	virtual void changeSavingsStat()
-	{
-
-	}
-
-	virtual void changeCDStat()
-	{
-
-	}
 	
-	virtual string getPhone()
+	virtual string getPhone() //Getter for phone number
 	{
 		return "";
 	}
-
-	virtual void changeStatus()
-	{
-		
-	}
 	
-	virtual string printToFile(){
+	virtual string printToFile(){ //Virtual function for printing account information to the file
 		return "";
 	}
    
-   void changeName(string inName){
-   name = inName;
-   }
+  	void changeName(string inName){ //Setter for name
+   		name = inName;
+   	}
    
-   void changePass(string pass){
-   password = pass;  
-   }
-   
-   virtual void changePhone(string phone){
-   
-   }
-   
-   virtual void changeAddress(string address){
-  
-   }
+   	void changePass(string pass){ //setter for phone number
+   		password = pass;  
+   	}
    
    
    
