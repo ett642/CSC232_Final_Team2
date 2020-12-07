@@ -4,9 +4,11 @@
 #include <string>
 using namespace std;
 
+//Parent class of checking, savings, and cd account classes
 class AbAccount
 {
     protected:
+	
         string accNum;
         double interestRate;
         int term;
@@ -16,7 +18,10 @@ class AbAccount
         bool status;
 
     public:
-    string lastDate;
+	
+    	string lastDate;
+	
+	//Default Constructor
         AbAccount()
         {
             status = false;
@@ -24,14 +29,14 @@ class AbAccount
             balance = 0.00;
 			interestRate = 0;
         }
-
+	
+	//Constructor
         AbAccount( string acc, string date, double bal, bool stat)
         {
             accNum = acc;
             dateOfOC = date;
             balance = bal;
             status = stat;
-
         }
 
         // Deposits an amount specified into the account balance
@@ -39,11 +44,13 @@ class AbAccount
         {
             balance += amount;
         }
+	
         // Withdraws an amount specified from the account balance
         virtual void withdraw(long double amount)
         {
             balance -= amount;
         }
+	
         // calculates daily interest rate and adds the daily interest to account balance
         void calcInt()
         {
@@ -51,45 +58,51 @@ class AbAccount
             dailyIR = dailyIR * balance;
             balance += dailyIR;
         }
-
+	
+	//Changes status of user banking accounts 
         virtual void setStatus()
         {
-			while(true){
-				int input;
-				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
-				cin >> input;
-				switch(input)
+		while(true)
+		{
+			int input;
+			cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
+			cin >> input;
+			
+			switch(input)
+			{
+				case 1:
 				{
-					case 1:
-					{
-						status = true;
-						cout<<"Account status changed to true!\n\n";
-						return;
-					}
-					case 2:
-					{
-						status = false;
-						cout<<"Account status changed to false!\n\n";
-						return;
-					}
-					default: // error catching
-					{ 
-						cout << "Try another input!" << endl;
-						cin.clear();
-						cin.ignore();
-						continue;
-					}
+					status = true;
+					cout<<"Account status changed to true!\n\n";
+					return;
+				}
+				case 2:
+				{
+					status = false;
+					cout<<"Account status changed to false!\n\n";
+					return;
+				}
+				default: // error catching
+				{ 
+					cout << "Try another input!" << endl;
+					cin.clear();
+					cin.ignore();
+					continue;
 				}
 			}
+		}
         }
-
+	
+	//Gets user account status
         bool getStatus()
         {
             return status;
         }
-		
-		void setInterest(double interest){
-			interestRate = interest;
-		}
+	
+	//Sets interest rate
+	void setInterest(double interest)
+	{
+		interestRate = interest;
+	}
 };
 #endif
