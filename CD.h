@@ -12,152 +12,141 @@ using namespace std;
 
 class CD : public AbAccount 
 {
-    private:
-	    string maturityDate = "1/1/2000";
-	    double rate = 0.1;
-    
-    public:
-	    // Constructor
-	    CD (): AbAccount()
-	    {
+	private:
+		string maturityDate = "1/1/2000";
+		double rate = 0.1;
 
-	    }
-    
-   //function for logged in menu
-   void menu(string date)
-   {
-   	if(!status)
-   	{
-	   cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
-	   return;	
-	}
-	lastDate = date;
-	for(;;) // menu for  loop
-	{
-		cout << "-------------------" << endl;
-		cout << "What would you like to do? \n" << endl;
-		cout << "[1] Open a CD" << endl;
-		cout << "[2] Close Existing CD" << endl;
-		cout << "[3] Check CD Info" << endl;
-		cout << "[4] Return to Main Menu" << endl;
-		cout << "-------------------" << endl;
-		int userInput;
-		cin >> userInput;
-		switch(userInput) 
+	public:
+		// Constructor
+		CD (): AbAccount()
 		{
-			case 1: //Open a CD
-			{
-				cout << "-------------------" << endl;
-				cout << "How much would you like to deposit?" << endl;
-				cout << "-------------------" << endl;
-				long double depositAmt;
-				cin >> depositAmt;
-				open(depositAmt, lastDate); //calls function that opens a CD and deposits money 
 
-				cout << "-------------------" << endl;
-				cout << "Your CD balance is: " << balance << endl; //outputs balance
-				cout << "Maturity Date: " << maturityDate << endl; //outputs maturity date 
-				cout << "Monthly Interest Rate: " << rate << endl; //outputs interest 
-				cout << "-------------------" << endl;
-				continue;
-			}
-			case 2: //Close a CD
+		}
+    
+		//function for logged in menu
+		void menu(string date)
+		{
+			if(!status)
 			{
-				close(lastDate);
-				continue;
+			   cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
+			   return;	
 			}
-			case 3: //Check CD Info
-			{
-				cout << "-------------------" << endl;
-				cout << "Your Initial Deposit was: " << balance << endl;
-				cout << "Maturity Date: " << maturityDate << endl; 
-				cout << "Monthly Interest Rate: " << rate << endl;
-				cout << "-------------------" << endl;
-				continue;
-			}
-			case 4: //Returns to Main Menu 
+			lastDate = date;
+			for(;;) // menu for  loop
 			{
 				cout << "-------------------" << endl;
-				cout << "Returning to Main Menu... " << endl;
+				cout << "What would you like to do? \n" << endl;
+				cout << "[1] Open a CD" << endl;
+				cout << "[2] Close Existing CD" << endl;
+				cout << "[3] Check CD Info" << endl;
+				cout << "[4] Return to Main Menu" << endl;
 				cout << "-------------------" << endl;
-				return;
-			}
-			default: // error catching
-			{ 
-				cout << "Try another input!" << endl;
-				cin.clear();
-				cin.ignore();
-				continue;
+				int userInput;
+				cin >> userInput;
+				switch(userInput) 
+				{
+					case 1: //Open a CD
+					{
+						cout << "-------------------" << endl;
+						cout << "How much would you like to deposit?" << endl;
+						cout << "-------------------" << endl;
+						long double depositAmt;
+						cin >> depositAmt;
+						open(depositAmt, lastDate); //calls function that opens a CD and deposits money 
+
+						cout << "-------------------" << endl;
+						cout << "Your CD balance is: " << balance << endl; //outputs balance
+						cout << "Maturity Date: " << maturityDate << endl; //outputs maturity date 
+						cout << "Monthly Interest Rate: " << rate << endl; //outputs interest 
+						cout << "-------------------" << endl;
+						continue;
+					}
+					case 2: //Close a CD
+					{
+						close(lastDate);
+						continue;
+					}
+					case 3: //Check CD Info
+					{
+						cout << "-------------------" << endl;
+						cout << "Your Initial Deposit was: " << balance << endl;
+						cout << "Maturity Date: " << maturityDate << endl; 
+						cout << "Monthly Interest Rate: " << rate << endl;
+						cout << "-------------------" << endl;
+						continue;
+					}
+					case 4: //Returns to Main Menu 
+					{
+						cout << "-------------------" << endl;
+						cout << "Returning to Main Menu... " << endl;
+						cout << "-------------------" << endl;
+						return;
+					}
+					default: // error catching
+					{ 
+						cout << "Try another input!" << endl;
+						cin.clear();
+						cin.ignore();
+						continue;
+					}
+				}
 			}
 		}
-	}
-}
 
    
    
   
-	//function to open a CD
-	void open(double amount, string date) 
-	{
-		if(amount > 0.00) //if the amount deposited is more than 0 
+		//function to open a CD
+		void open(double amount, string date) 
 		{
-			balance += amount; //successfully deposit
-			maturityDate = maturityCalc(date); //calls function to calculate the maturity date
-			status = true;
-		}
-		else //if the deposit is not a positive amount it will not deposit
-		{
-			cout << "Invalid deposit" << endl;//lets user know amount is invalid for deposit
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			for(;;) 
+			if(amount > 0.00) //if the amount deposited is more than 0 
 			{
-				cout << "Please enter a valid deposit: "<< endl; //prompts user to enter a valid deposit
-				double amt;
-				cin >> amt;
-				open(amt,date);
-				break;
+				balance += amount; //successfully deposit
+				maturityDate = maturityCalc(date); //calls function to calculate the maturity date
+				status = true;
+			}
+			else //if the deposit is not a positive amount it will not deposit
+			{
+				cout << "Invalid deposit" << endl;//lets user know amount is invalid for deposit
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				for(;;) 
+				{
+					cout << "Please enter a valid deposit: "<< endl; //prompts user to enter a valid deposit
+					double amt;
+					cin >> amt;
+					open(amt,date);
+					break;
+				}
 			}
 		}
-	}
 
-	void close(string date) //function to withdraw money and close the account
-	{
-		if(!status) 
+		void close(string date) //function to withdraw money and close the account
 		{
-			cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
-			return;	
-		}
-		int month = stoi(date.substr(0,date.find("/")));
-		string temp = date.substr(date.find("/")+1);
-		int day = stoi(date.substr(0,date.find("/")));
-		temp = date.substr(date.find("/")+1);
-		int year = stoi(date);
+			if(!status) 
+			{
+				cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
+				return;	
+			}
+			int month = stoi(date.substr(0,date.find("/")));
+			string temp = date.substr(date.find("/")+1);
+			int day = stoi(date.substr(0,date.find("/")));
+			temp = date.substr(date.find("/")+1);
+			int year = stoi(date);
 
-		int maturityMonth = stoi(maturityDate.substr(0,maturityDate.find("/")));
-		temp = maturityDate.substr(maturityDate.find("/")+1);
-		int maturityDay = stoi(maturityDate.substr(0,maturityDate.find("/")));
-		temp = maturityDate.substr(maturityDate.find("/")+1);
-		int maturityYear = stoi(maturityDate);
+			int maturityMonth = stoi(maturityDate.substr(0,maturityDate.find("/")));
+			temp = maturityDate.substr(maturityDate.find("/")+1);
+			int maturityDay = stoi(maturityDate.substr(0,maturityDate.find("/")));
+			temp = maturityDate.substr(maturityDate.find("/")+1);
+			int maturityYear = stoi(maturityDate);
 
-		if (month > maturityMonth)
-		{
-			maturityMonth += 12;
-		}
-		int monthsLeft = maturityMonth - month;
-		
-		if (maturityYear < year)
-		{
-			//successful
-			calcInt();
-			double tempBalance = balance;
-			resetCD();
-			cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
-			return;
-		}
-		else if (maturityYear == year)
-		{
-			if(monthsLeft > 3)
+			if (month > maturityMonth)
+			{
+				maturityMonth += 12;
+			}
+			int monthsLeft = maturityMonth - month;
+
+			if (maturityYear < year)
 			{
 				//successful
 				calcInt();
@@ -166,9 +155,9 @@ class CD : public AbAccount
 				cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
 				return;
 			}
-			else if(monthsLeft == 3)
+			else if (maturityYear == year)
 			{
-				if(maturityDay <= day)
+				if(monthsLeft > 3)
 				{
 					//successful
 					calcInt();
@@ -177,127 +166,142 @@ class CD : public AbAccount
 					cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
 					return;
 				}
+				else if(monthsLeft == 3)
+				{
+					if(maturityDay <= day)
+					{
+						//successful
+						calcInt();
+						double tempBalance = balance;
+						resetCD();
+						cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+						return;
+					}
+				}
 			}
-		}
-		//interest penalty
-		if(monthsLeft == 3)
-		{
-			double tempBalance = balance - (balance * 0.4);
-			resetCD();
-			cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
-			return;
-		}
-		//interest penalty
-		else if(monthsLeft == 2)
-		{
-			double tempBalance = balance - (balance * 0.2);
-			resetCD();
-			cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
-			return;
-		}
-		//interest penalty
-		else
-		{
-			double tempBalance = balance - (balance * 0.1);
-			resetCD();
-			cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
-			return;
-		}             
+			//interest penalty
+			if(monthsLeft == 3)
+			{
+				double tempBalance = balance - (balance * 0.4);
+				resetCD();
+				cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+				return;
+			}
+			//interest penalty
+			else if(monthsLeft == 2)
+			{
+				double tempBalance = balance - (balance * 0.2);
+				resetCD();
+				cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+				return;
+			}
+			//interest penalty
+			else
+			{
+				double tempBalance = balance - (balance * 0.1);
+				resetCD();
+				cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+				return;
+			}             
 
-	}
+		}
 
-	void calcInt()// calculates current interest based on CD's fixed annual rate
-	{
-		double monthlyRate = rate / 12;
-		monthlyRate = 3 * (monthlyRate * balance);
-		balance += monthlyRate;
-	}  
+		void calcInt()// calculates current interest based on CD's fixed annual rate
+		{
+			double monthlyRate = rate / 12;
+			monthlyRate = 3 * (monthlyRate * balance);
+			balance += monthlyRate;
+		}  
 
-	//function to determine when the maturity date of the CD is
-	string maturityCalc(string date)
-	{
-		string temp = date;
+		//function to determine when the maturity date of the CD is
+		string maturityCalc(string date)
+		{
+			string temp = date;
+
+			//take the current date and change the month variable to be 3 months later
+			int month = stoi(temp.substr(0,temp.find("/")));
+			temp = temp.substr(temp.find("/")+1);
+			int day = stoi(temp.substr(0,temp.find("/")));
+			temp = temp.substr(temp.find("/")+1);
+			int year = stoi(temp);
+
+			month += 3;
+			if (month > 12)
+			{
+				month -= 12;
+				year += 1;
+			}
+			string mDate = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+			return mDate;  //return the result as a string variable "maturityDate
+		}
 		
-		//take the current date and change the month variable to be 3 months later
-		int month = stoi(temp.substr(0,temp.find("/")));
-		temp = temp.substr(temp.find("/")+1);
-		int day = stoi(temp.substr(0,temp.find("/")));
-		temp = temp.substr(temp.find("/")+1);
-		int year = stoi(temp);
-
-		month += 3;
-		if (month > 12)
+		//Resets CD when term ends
+		void resetCD()
 		{
-		month -= 12;
-		year += 1;
-		}
-		string mDate = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
-		return mDate;  //return the result as a string variable "maturityDate
-	}
-
-	void resetCD()
-	{
-		balance = 0;
-		status = false;
-	}
-
-	void fileInfo(double bal, string stat, string term)
-	{
-	balance = bal;
-	maturityDate = term;
-		if(stat == "t")
-		{
-			status = true;
-		}
-		else
-		{
+			balance = 0;
 			status = false;
 		}
-	}
-
-	string printToFile()
-	{
-		string info; string stat = "f";
-		if(status)
+		
+		//Recieves file info and updates CD info
+		void fileInfo(double bal, string stat, string term)
 		{
-			stat = "t";
-		}
-		info = to_string(balance)+"*"+stat+"*"+maturityDate;
-		return info;
-	}
-
-	void setStatus()
-	{
-		while(true)
-		{
-			int input;
-			cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
-			cin >> input;
-			switch(input)
+			balance = bal;
+			maturityDate = term;
+			if(stat == "t")
 			{
-				case 1:
-				{
-					status = true;
-					cout<<"Account status changed to true!\n\n";
-					return;
-				}
+				status = true;
+			}
+			else
+			{
+				status = false;
+			}
+		}
+		
+		//Returns CD info for appending to file
+		string printToFile()
+		{
+			string info; string stat = "f";
+			if(status)
+			{
+				stat = "t";
+			}
+			info = to_string(balance)+"*"+stat+"*"+maturityDate;
+			return info;
+		}
 
-				case 2:
+		//Allows changes to status for open or closing account
+		void setStatus()
+		{
+			while(true)
+			{
+				int input;
+				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
+				cin >> input;
+				switch(input)
 				{
-					status = false;
-					cout<<"Account status changed to false!\n\n";
-					return;
-				}
+					case 1:
+					{
+						status = true;
+						cout<<"Account status changed to true!\n\n";
+						return;
+					}
 
-				default: // error catching
-				{ 
-				cout << "Try another input!" << endl;
-				cin.clear();
-				cin.ignore();
-				continue;
+					case 2:
+					{
+						status = false;
+						cout<<"Account status changed to false!\n\n";
+						return;
+					}
+
+					default: // error catching
+					{ 
+					cout << "Try another input!" << endl;
+					cin.clear();
+					cin.ignore();
+					continue;
+					}
 				}
 			}
-	}
-}
+		}
 };
 #endif
