@@ -27,8 +27,11 @@ class User : public Accounts
         phone = inPhone;
 		address = inAddress;
 		
-		string temp = number+"transactions.txt";
-		ofstream file; file.open(temp);
+		string temp = number+"transactions.txt"; //12/6/2020*deposited $200 into savings
+		fstream file; file.open(temp);
+		if(!file){
+			ofstream createFile; createFile.open(temp);
+		}
 		file.close();
     }
 
@@ -84,12 +87,12 @@ class User : public Accounts
 
     void accMenu(string date)
     {
-        int userInput;
-        cout <<endl<< "What would you like to do\n" << "1 to access Checking\n" << "2 to access savings\n";
-        cout << "3 to access CD\n" << "4 to exit\n";
-        cin >> userInput;
-        for(;;)
+        while(true)
         {
+			int userInput;
+			cout <<endl<< "What would you like to do\n" << "1 to access Checking\n" << "2 to access savings\n";
+			cout << "3 to access CD\n" << "4 to exit\n";
+			cin >> userInput;
             switch(userInput)
             {
                 case 1:
@@ -154,20 +157,35 @@ class User : public Accounts
       return info;
 	}
    
-   CheckingAccount getChecking()
+   void getChecking()
     {
-        return checking;
+        checking.setStatus();
     }
+	
+	void checkingMenu(string date)
+	{
+		checking.Menu(date, number);
+	}
     
-    SavingsAccount getSavings()
+    void getSavings()
     {
-        return savings;
+        savings.setStatus();
     }
+	
+	void savingsMenu(string date)
+	{
+		savings.Menu(date, number);
+	}
 
-    CD getCD()
+    void getCD()
     {
-        return cd;
+        cd.setStatus();
     }
+	
+	void cdMenu(string date)
+	{
+		cd.menu(date);
+	}
 	
 	void fileInput(string text){
 		double bal; string stat; double interest; string term;
@@ -204,14 +222,32 @@ class User : public Accounts
 	void transactionFile(string date){
 		int month; int day; int year; int fileMonth; int fileDay; int fileYear; string text;
 		getDate(date, &month, &day, &year);
-		fstream file; file.open(number+"transaction.txt");
+		string temp = number+"transactions.txt";
+		ifstream file; file.open(temp, fstream::in);
 		while(getline(file, text)){
 			string temp = text.substr(0, text.find("*"));
 			getDate(temp, &fileMonth,&fileDay,&fileYear);
-			if(year<=fileYear and month<=fileMonth and day<=fileDay){
+			if (fileYear > year)
+            {
 				cout<<text<<endl;
-			}
+            }
+            
+            else if (fileYear == year)
+            {
+               if(fileMonth > month)
+               {
+					cout<<text<<endl;
+               }
+               else if(fileMonth == month)
+               {
+                  if(fileDay >= day)
+                  {
+					cout<<text<<endl;
+                  }
+               }
+            }
 		}
+		file.close();
 	}
 	
 	void getDate(string date, int *month, int *day, int *year){
