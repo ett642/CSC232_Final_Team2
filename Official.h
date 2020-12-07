@@ -93,17 +93,17 @@ public:
 					{
 						case 1:
 						{
-							changeCheckingStat(i);
+							i.getChecking();
 							continue;
 						}
 						case 2:
 						{
-							changeSavingsStat(i);
+							i.getSavings();
 							continue;
 						}
 						case 3:
 						{
-							changeCDStat(i);
+							i.getCD();
 							continue;
 						}
 						case 4:
@@ -129,40 +129,6 @@ public:
 		
 	}
 
-	void changeCheckingStat(User i)
-	{
-		i.getChecking().setStatus();
-		//if(c.getStatus() == false)
-		//{
-			//save num, inName
-			// save account info
-		//}
-	}
-
-	void changeSavingsStat(User i)
-	{
-		SavingsAccount s;
-		s = i.getSavings();
-		s.setStatus();
-		if(s.getStatus() == false)
-		{
-			//save num, inName
-			// save account info
-		}
-	}
-
-	void changeCDStat(User i)
-	{
-		CD c;
-		c = i.getCD();
-		c.setStatus();
-		if(c.getStatus() == false)
-		{
-			//save num, inName
-			// save account info
-		}
-	}
-
 	void accountDeposit(vector<User> &user)
 	{
 		string input;
@@ -181,154 +147,27 @@ public:
 				cin >> input;
 				if(i.getPassword() == input)
 				{
-					cout <<endl <<"Which account type would you like to access?\n" << "1 for Checking\n" << "2 for Savings\n";
-					cout <<"3 for CD\n" << "4 to exit\n";
-					cin >> sNum;
 					for(;;)
 					{
+						cout <<endl <<"Which account type would you like to access?\n" << "1 for Checking\n" << "2 for Savings\n";
+						cout <<"3 for CD\n" << "4 to exit\n";
+						cin >> sNum;
 						switch(sNum)
 						{
 							case 1:
 							{
-								c = i.getChecking();
-								cout << "1 to deposit\n" << "2 to withdraw" << "3 to Cancel";
-								cin >> sNum;
-								for(;;)
-								{
-									switch(sNum)
-									{
-										case 1:
-										{
-											cout << "-------------------" << endl;
-											cout << "How much would you like to deposit?" << endl;
-											cout << "-------------------" << endl;
-											long double depositAmt;
-											cin >> depositAmt;
-											c.deposit(depositAmt, i.getNumber(), lastDate);
-											continue;
-										}
-										case 2:
-										{
-											cout << "-------------------" << endl;
-											cout << "How much would you like to Withdraw?" << endl;
-											cout << "-------------------" << endl;
-											long double withdrawAmt;
-											cin >> withdrawAmt;
-											c.withdraw(withdrawAmt, i.getNumber(), lastDate);
-											continue;
-										}
-										case 3:
-										{
-											cout << "-------------------" << endl;
-											cout << "Exiting Menu... " << endl;
-											cout << "-------------------" << endl;
-											return;
-										}
-											
-										default: // error catching
-										{ 
-											cout << "Try another input!" << endl;
-											cin.clear();
-											cin.ignore();
-											continue;
-										}
-									}
-								}
+								i.checkingMenu(lastDate);
 								continue;
 							}
 							case 2:
 							{
-								s = i.getSavings();
-								cout << "1 to deposit\n" << "2 to withdraw" << "3 to Cancel";
-								cin >> sNum;
-								for(;;)
-								{
-									switch(sNum)
-									{
-										case 1:
-										{
-											cout << "-------------------" << endl;
-											cout << "How much would you like to deposit?" << endl;
-											cout << "-------------------" << endl;
-											long double depositAmt;
-											cin >> depositAmt;
-											s.deposit(depositAmt, i.getNumber(), lastDate);
-						continue;
-										}
-										case 2:
-										{
-											cout << "-------------------" << endl;
-											cout << "How much would you like to Withdraw?" << endl;
-											cout << "-------------------" << endl;
-											long double withdrawAmt;
-											cin >> withdrawAmt;
-											s.withdraw(withdrawAmt, i.getNumber(), lastDate);
-						continue;
-										}
-										case 3:
-										{
-											cout << "-------------------" << endl;
-											cout << "Exiting Menu... " << endl;
-											cout << "-------------------" << endl;
-											return;
-										}
-											
-										default: // error catching
-										{ 
-											cout << "Try another input!" << endl;
-											cin.clear();
-											cin.ignore();
-											continue;
-										}
-									}
-								}
-						continue;
+								i.savingsMenu(lastDate);
+								continue;
 							}
 							case 3:
 							{
-                           cd = i.getCD();
-   								cout <<endl<< "[1]Open a CD\n" << "[2] Close a CD" << "[3] to Cancel";
-   								cin >> sNum;
-   								for(;;)
-   								{
-   									switch(sNum)
-   									{
-   										case 1:
-   										{
-   											cout << "-------------------" << endl;
-   											cout << "How much would you like to deposit?" << endl;
-   											cout << "-------------------" << endl;
-   											long double depositAmt;
-                                    cin >> depositAmt;
-                                    cd.open(depositAmt, lastDate);
-						continue;
-   										}
-   										case 2:
-   										{
-   										   cout << "-------------------" << endl;
-                                    cout << "The CD is now closed." << endl;
-                                    cout << "-------------------" << endl;
-                                    cd.close(lastDate);
-						continue;
-   										}
-   										case 3:
-   										{
-   											cout << "-------------------" << endl;
-   											cout << "Exiting Menu... " << endl;
-   											cout << "-------------------" << endl;
-   											return;
-   										}
-   											
-   										default: // error catching
-   										{ 
-   											cout << "Try another input!" << endl;
-   											cin.clear();
-   											cin.ignore();
-   											continue;
-   										}
-   									}
-   								}
-						continue;
+								i.cdMenu(lastDate);
+   								continue;
 
 							}
                      
