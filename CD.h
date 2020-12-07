@@ -62,9 +62,7 @@ class CD : public AbAccount {
                        }
                        case 2: 
                        {
-                          cout << "-------------------" << endl;
-                          cout << "Your CD is now closed. You recieved $" << close(lastDate) << endl;
-                          cout << "-------------------" << endl;
+                          close(lastDate);
                           continue;
                        }
                        case 3:
@@ -124,15 +122,13 @@ class CD : public AbAccount {
 
    }
    
-   double close(string date) //function to withdraw money and close the account
+   void close(string date) //function to withdraw money and close the account
    {
        if(!status) 
        {
             cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
             return 0;	
        }
-            cout << "Warning! Your withdrawl will incur a penalty, your Certificate of Deposit balance is: $" << balance << endl;
-            cout << "You must wait until the maturity date to withdraw your funds with no penalty " << endl;
             
             int month = stoi(date.substr(0,date.find("/")));
       		string temp = date.substr(date.find("/")+1);
@@ -158,7 +154,8 @@ class CD : public AbAccount {
             calcInt();
             double tempBalance = balance;
             resetCD();
-            return tempBalance;
+			cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+			return;
             }
             
             else if (maturityYear == year)
@@ -169,7 +166,8 @@ class CD : public AbAccount {
                   calcInt();
                   double tempBalance = balance;
                   resetCD();
-                  return tempBalance;
+				  cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+                  return;
                }
                else if(monthsLeft == 3)
                {
@@ -179,7 +177,8 @@ class CD : public AbAccount {
                      calcInt();
                      double tempBalance = balance;
                      resetCD();
-                     return tempBalance;
+					 cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+                     return;
                   }
                }
             }
@@ -188,21 +187,24 @@ class CD : public AbAccount {
             {
                double tempBalance = balance - (balance * 0.4);
                resetCD();
-               return tempBalance;
+			   cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+               return;
             }
             //interest penalty
             else if(monthsLeft == 2)
             {
                double tempBalance = balance - (balance * 0.2);
                resetCD();
-               return tempBalance;
+			   cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+               return;
             }
             //interest penalty
             else
             {
                double tempBalance = balance - (balance * 0.1);
                resetCD();
-               return tempBalance;
+			   cout<<"Your CD is now closed. You received $"<<tempBalance<<endl;
+               return;
             }             
             
     }
@@ -217,21 +219,22 @@ class CD : public AbAccount {
     //function to determine when the maturity date of the CD is
     string maturityCalc(string date)
     {
-      //take the current date and change the month variable to be 3 months later
-      int month = stoi(date.substr(0,date.find("/")));
-		string temp = date.substr(date.find("/")+1);
-		int day = stoi(date.substr(0,date.find("/")));
-      temp = date.substr(date.find("/")+1);
-      int year = stoi(date);
+		string temp = date;
+		//take the current date and change the month variable to be 3 months later
+		int month = stoi(temp.substr(0,temp.find("/")));
+		temp = temp.substr(temp.find("/")+1);
+		int day = stoi(temp.substr(0,temp.find("/")));
+		temp = temp.substr(temp.find("/")+1);
+		int year = stoi(temp);
       
-      month += 3;
-      if (month > 12)
-      {
-         month -= 12;
-         year += 1;
-      }
-      string mDate = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
-      return mDate;  //return the result as a string variable "maturityDate"
+		month += 3;
+		if (month > 12)
+		{
+			month -= 12;
+			year += 1;
+		}
+		string mDate = to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+		return mDate;  //return the result as a string variable "maturityDate"
       
     }
     
@@ -260,5 +263,36 @@ class CD : public AbAccount {
 		info = to_string(balance)+"*"+stat+"*"+maturityDate;
 		return info;
 	}
+	
+	void setStatus()
+        {
+			while(true){
+				int input;
+				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
+				cin >> input;
+				switch(input)
+				{
+					case 1:
+					{
+						status = true;
+						cout<<"Account status changed to true!\n\n";
+						return;
+					}
+					case 2:
+					{
+						status = false;
+						cout<<"Account status changed to false!\n\n";
+						return;
+					}
+					default: // error catching
+					{ 
+						cout << "Try another input!" << endl;
+						cin.clear();
+						cin.ignore();
+						continue;
+					}
+				}
+			}
+        }
 };
 #endif
