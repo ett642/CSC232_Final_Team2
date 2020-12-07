@@ -52,11 +52,11 @@ class AbAccount
             balance += dailyIR;
         }
 
-        void setStatus()
+        virtual void setStatus()
         {
 			while(true){
 				int input;
-				cout << "1 to activate account.\n" << "2 to deactivate account.\n";
+				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
 				cin >> input;
 				switch(input)
 				{
