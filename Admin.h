@@ -25,21 +25,21 @@ class Admin : public Accounts
    //function for logged in menu
 	void loggedIn(string date, vector<Official> &official, vector<User> &user)
    {
-	cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
-	lastDate = date;
-	while(true){ // menu for  loop
-                    cout << "-------------------" << endl;
-                    cout << "What would you like to do? \n" << endl;
-                    cout << "[1] Create a Bank Official profile" << endl;
-                    cout << "[2] Change a Bank Official profile's status" << endl;
-                    cout << "[3] Create a Customer profile" << endl;
-                    cout << "[4] Delete a Customer profile" << endl;
-                    cout << "[5] Edit a Customer profile" << endl;
-                    cout << "[6] Return to main menu" << endl;
-                    cout << "-------------------" << endl;
-                    int userInput;
-                    cin >> userInput;
-                    switch(userInput) {
+		cout<<"Successfully logged in! Last login was "<<lastDate<<endl;
+		lastDate = date;
+		while(true){ // menu for  loop
+			cout << "-------------------" << endl;
+			cout << "What would you like to do? \n" << endl;
+			cout << "[1] Create a Bank Official profile" << endl;
+			cout << "[2] Change a Bank Official profile's status" << endl;
+			cout << "[3] Create a Customer profile" << endl;
+			cout << "[4] Delete a Customer profile" << endl;
+			cout << "[5] Edit a Customer profile" << endl;
+			cout << "[6] Return to main menu" << endl;
+			cout << "-------------------" << endl;
+			int userInput;
+			cin >> userInput;
+			switch(userInput) {
                        case 1: 
                        {
                           cout << "-------------------" << endl;
@@ -111,11 +111,10 @@ class Admin : public Accounts
                              {
                                 cout << "Invalid option...Please Try Again" <<endl;
                                 continue;
-                             } 
-
-                          }                      
+                             }
+                          }
+							continue;
                         }
-                                                 
                         case 3: 
                         {
                           cout << "-------------------" << endl;
@@ -129,7 +128,7 @@ class Admin : public Accounts
                           cout << "-------------------" << endl;
                           string lastname;
                           cin >> lastname;
-                          string inName = firstname + lastname;
+                          string inName = firstname +" "+ lastname;
                           
                           cout << "-------------------" << endl;
                           cout << "Enter Customer Phone Number" << endl;
@@ -174,146 +173,141 @@ class Admin : public Accounts
                         
                         case 4: 
                         {
-                          cout << "-------------------" << endl;
-                          cout << "Search a Customer by Profile Number" << endl;
-                          cout << "-------------------" << endl;
-						        string num;
-                          cin >> num;
+							cout << "-------------------" << endl;
+							cout << "Search a Customer by Profile Number" << endl;
+							cout << "-------------------" << endl;
+							string num;
+							cin >> num;
 		                    for(User &i: user)
-                          {
-   		                    if(i.getNumber() == num)
-                             cout << "-------------------" << endl;
-                             cout << "Delete this Customer? Y/N" << endl;
-                             cout << "-------------------" << endl;
-                             string answer;
-                             cin >> answer;
-                             if(answer == "Y" || answer == "y")
-                             {
-                               int count = 0;
-                               for(User &j: user)
-                               {
-                                 if(num == j.getNumber())
-                                 {
-                                 break;
-                                 }
-                                 count++;
-                               }
-                               user.erase(user.begin() + count);
-                             }
-                             else if(answer == "N" || answer == "n")
-                             {
-                                cout << "Returning to Admin Menu..." << endl;
-                                continue;
-                             }
-                             else
-                             {
-                                cout << "Invalid option...Please Try Again" <<endl;
-                                continue;
-                             } 
-                          }
+							{
+								if(i.getNumber() == num)
+									cout << "-------------------" << endl;
+									cout << "Delete this Customer? Y/N" << endl;
+									cout << "-------------------" << endl;
+									string answer;
+									cin >> answer;
+									if(answer == "Y" || answer == "y")
+									{
+										int count = 0;
+										for(User &j: user)
+										{
+											if(num == j.getNumber())
+											{
+												break;
+											}
+											count++;
+										}
+										user.erase(user.begin() + count);
+										continue;
+									}
+									else if(answer == "N" || answer == "n")
+									{
+										cout << "Returning to Admin Menu..." << endl;
+										continue;
+									}
+									else
+									{
+										cout << "Invalid option...Please Try Again" <<endl;
+										continue;
+									} 
+							}
+							continue;
                         }
                         
                         case 5: 
                         {
-                          cout << "-------------------" << endl;
-                          cout << "Search a Customer by Profile Number" << endl;
-                          cout << "-------------------" << endl;
-						        string num;
-                          cin >> num;
+							cout << "-------------------" << endl;
+							cout << "Search a Customer by Profile Number" << endl;
+							cout << "-------------------" << endl;
+						    string num;
+							cin >> num;
 		                    for(User &i: user)
-                          {
-   		                    if(i.getNumber() == num)                 
-                             cout << "-------------------" << endl;
-                             cout << "Edit this Customer Profile? Y/N" << endl;
-                             cout << "-------------------" << endl;
-                             string answer;
-                             cin >> answer;
-                             
-                             if(answer == "Y" || answer == "y")
-                             {
-                                //proceed with editing the user
-                                cout << "-------------------" << endl;
-                                cout << "What would you like to change?" << endl;
-                                cout << "[1] Change Name" << endl;
-                                cout << "[2] Change Phone" << endl;
-                                cout << "[3] Change Address" << endl;
-                                cout << "[4] Change Password" << endl;
-                                cout << "[5] Return" << endl;
-                                cout << "-------------------" << endl;
-                                int newInput;
-                                cin >> newInput;
-                                switch(newInput) 
-                                {
-                                   case 1: 
-                                   {
-                                      cout << "Enter First Name: " << endl;
-                                      string firstname;
-                                      cin >> firstname;
-                                      cout << "Enter Last Name: " << endl;
-                                      string lastname;
-                                      cin >> lastname;
-                                      string inName = lastname + " " + firstname;
-                                      for(User &i: user)
-                                      {
-                                              i.changeName(inName);
-                                              cout << "Name Successfully Changed" << endl;
-                                              cout << "Returning to Edit Menu" << endl;
-                                              continue;
-                                          }
-                                      }
-                                    
-                                   
-                                   case 2: 
-                                   {
-                                      cout << "Enter New Phone Number: " << endl;
-                                      string phoneNumber;
-                                      cin >> phoneNumber;
-                                      for(User &i: user)
-                                      {
-                                              cout << "Phone Number Successfully Changed" << endl;
-                                              cout << "Returning to Edit Menu" << endl;
-                                              i.changePhone(phoneNumber);
-                                              continue;
-                                          }
-                                      }
-                                    
-                                    
-                                   case 3: 
-                                   {
-                                      i.changePass();
-
-                                      cout << "Password Successfully Changed" << endl;
-                                      cout << "Returning to Edit Menu" << endl;
-                                      continue;
-                                    }
-                                    
-                                   case 4: 
-                                   {
-                                      cout << "Enter New Address: " << endl;
-                                      string newAddress;
-                                      cin >> newAddress;
-                                      for(User &i: user)
-                                      {
-                                              cout << "Address Successfully Changed" << endl;
-                                              cout << "Returning to Edit Menu" << endl;
-                                              i.changeAddress(newAddress);
-                                              continue;
-                                          }
-                                      }
-                                  }
-                             }  
-                             else if(answer == "N" || answer == "n")
-                             {
-                             cout << "Returning to Admin Menu..." << endl;
-                             continue;
-                             }
-                             else
-                             {
-                             cout << "Invalid option...Please Try Again" <<endl;
-                             continue;
-                             } 
-                          }
-                        }
+							{
+								if(i.getNumber() == num)
+								{
+									cout << "-------------------" << endl;
+									cout << "Edit this Customer Profile? Y/N" << endl;
+									cout << "-------------------" << endl;
+									string answer;
+									cin >> answer;
+								 
+									if(answer == "Y" || answer == "y")
+									{
+										//proceed with editing the user
+										cout << "-------------------" << endl;
+										cout << "What would you like to change?" << endl;
+										cout << "[1] Change Name" << endl;
+										cout << "[2] Change Phone" << endl;
+										cout << "[3] Change Address" << endl;
+										cout << "[4] Change Password" << endl;
+										cout << "[5] Return" << endl;
+										cout << "-------------------" << endl;
+										int newInput;
+										cin >> newInput;
+										switch(newInput) 
+										{
+											case 1: 
+											{
+												cout << "Enter First Name: " << endl;
+												string firstname;
+												cin >> firstname;
+												cout << "Enter Last Name: " << endl;
+												string lastname;
+												cin >> lastname;
+												string inName = lastname + " " + firstname;
+												i.changeName(inName);
+												cout << "Name Successfully Changed" << endl;
+												cout << "Returning to Edit Menu" << endl;
+												continue;
+											}
+											
+										   
+										   case 2: 
+											{
+												cout << "Enter New Phone Number: " << endl;
+												string phoneNumber;
+												cin >> phoneNumber;
+												cout << "Phone Number Successfully Changed" << endl;
+												cout << "Returning to Edit Menu" << endl;
+												i.changePhone(phoneNumber);
+												continue;
+											}
+											
+											
+										   case 3: 
+											{
+												i.changePass();
+												cout << "Password Successfully Changed" << endl;
+												cout << "Returning to Edit Menu" << endl;
+												continue;
+											}
+											
+										   case 4: 
+											{
+												cout << "Enter New Address: " << endl;
+												string newAddress;
+												cin >> newAddress;
+												cout << "Address Successfully Changed" << endl;
+												cout << "Returning to Edit Menu" << endl;
+												i.changeAddress(newAddress);
+												continue;
+											}
+										}
+									}  
+									else if(answer == "N" || answer == "n")
+									{
+										cout << "Returning to Admin Menu..." << endl;
+										continue;
+									}
+									else
+									{
+										cout << "Invalid option...Please Try Again" <<endl;
+										continue;
+									} 
+								}
+								continue;
+							}
+						}
                         
                         case 6: 
                         {
@@ -330,9 +324,10 @@ class Admin : public Accounts
                                 cin.ignore();
                                 continue;
                         }
-                     }
-                 }
-             }
+                }
+            }
+        }
+		
    string printToFile()
    {
       string info;
