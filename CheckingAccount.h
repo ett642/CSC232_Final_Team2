@@ -26,24 +26,24 @@ class CheckingAccount : public AbAccount
    //function for logged in menu
    void Menu(string date, string number)
    {
-	if(!status){
-		cout<<"You don't have a checking account! Contact a Bank Official to open one.\n";
-		return;
-	}
-	lastDate = date;
-	while(true) { // menu for  loop
-        cout << "-------------------" << endl;
-        cout << "What would you like to do? \n" << endl;
-		cout << "[1] Deposit Funds" << endl;
-		cout << "[2] Withdraw Funds" << endl;
-		cout << "[3] Check Account Balance" << endl;
-		cout << "[4] Return to Main Menu" << endl;
-		cout << "-------------------" << endl;
-		int userInput;
-		cin >> userInput;
-		switch(userInput) {
-			case 1: 
-			{
+		if(!status){
+			cout<<"You don't have a checking account! Contact a Bank Official to open one.\n";
+			return;
+		}
+		lastDate = date;
+		while(true) { // menu for  loop
+			cout << "-------------------" << endl;
+			cout << "What would you like to do? \n" << endl;
+			cout << "[1] Deposit Funds" << endl;
+			cout << "[2] Withdraw Funds" << endl;
+			cout << "[3] Check Account Balance" << endl;
+			cout << "[4] Return to Main Menu" << endl;
+			cout << "-------------------" << endl;
+			int userInput;
+			cin >> userInput;
+			switch(userInput) {
+				case 1: 
+				{
 				  cout << "-------------------" << endl;
 				  cout << "How much would you like to deposit?" << endl;
 				  cout << "-------------------" << endl;
@@ -57,45 +57,45 @@ class CheckingAccount : public AbAccount
 				  cout << "Your new balance is: " << balance << endl;
 				  cout << "-------------------" << endl;
 				  continue;
+				}
+				case 2: 
+				{
+				  cout << "-------------------" << endl;
+				  cout << "How much would you like to Withdraw?" << endl;
+				  cout << "-------------------" << endl;
+				  long double withdrawAmt;
+				  cin >> withdrawAmt;
+				  withdraw(withdrawAmt, number, date);
+				  
+				  //withdraw amount using withdrawAmt?
+				  
+				  cout << "-------------------" << endl;
+				  cout << "Your new balance is: " << balance << endl;
+				  cout << "-------------------" << endl;
+				  continue;
+				}
+				case 3:
+				{
+				  cout << "-------------------" << endl;
+				  cout << "Your Current Balance is: " << balance << endl;
+				  cout << "-------------------" << endl;
+				  continue;
+				}
+				case 4:
+				{
+				  cout << "-------------------" << endl;
+				  cout << "Returning to Main Menu... " << endl;
+				  cout << "-------------------" << endl;
+				  return;
+				}
+				default: // error catching
+				{ 
+				cout << "Try another input!" << endl;
+				cin.clear();
+				cin.ignore();
+				continue;
+				}
 			}
-                       case 2: 
-                       {
-                          cout << "-------------------" << endl;
-                          cout << "How much would you like to Withdraw?" << endl;
-                          cout << "-------------------" << endl;
-                          long double withdrawAmt;
-                          cin >> withdrawAmt;
-                          withdraw(withdrawAmt, number, date);
-                          
-                          //withdraw amount using withdrawAmt?
-                          
-                          cout << "-------------------" << endl;
-                          cout << "Your new balance is: " << balance << endl;
-                          cout << "-------------------" << endl;
-                          continue;
-                       }
-                       case 3:
-                       {
-                          cout << "-------------------" << endl;
-                          cout << "Your Current Balance is: " << balance << endl;
-                          cout << "-------------------" << endl;
-                          continue;
-                       }
-                       case 4:
-                       {
-                          cout << "-------------------" << endl;
-                          cout << "Returning to Main Menu... " << endl;
-                          cout << "-------------------" << endl;
-                          return;
-                       }
-                       default: // error catching
-                       { 
-                          cout << "Try another input!" << endl;
-                          cin.clear();
-                          cin.ignore();
-                          continue;
-                       }
-                    }
         }
     }
 
@@ -104,8 +104,8 @@ class CheckingAccount : public AbAccount
         if(amount > 0.00) 
         {
             balance += amount; // deposit the amount
-			fstream file; file.open(number+"transactions.txt");
-			file<<date+"*Deposited "<<amount<<" into checking."<<endl;
+			fstream file; file.open(number+"transactions.txt", fstream::app);
+			file<<date+"*Deposited "<<amount<<" into checking"<<endl;
 			file.close();
         }
         else 
@@ -141,8 +141,8 @@ class CheckingAccount : public AbAccount
        if(balance >= amount) 
        {
          balance -= amount; // subtract the amount if it's in the balance
-		 fstream file; file.open(number+"transactions.txt");
-		 file<<date+"*Withdrew "<<amount<<" from checking."<<endl;
+		 fstream file; file.open(number+"transactions.txt", fstream::app);
+		 file<<date+"*Withdrew "<<amount<<" from checking"<<endl;
 		 file.close();
        }
        else 
@@ -157,12 +157,10 @@ class CheckingAccount : public AbAccount
 	
 	string changeStatus(){
 		if(status){
-			cout<<"returned t\n";
-			return "t";
+			return"t";
 		}
 		else{
-			cout<<"returned f\n";
-			return "f";
+			return"f";
 		}
 	}
 	
@@ -180,6 +178,37 @@ class CheckingAccount : public AbAccount
 		else
 			status = false; 
    }
+   
+   void setStatus()
+        {
+			while(true){
+				int input;
+				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
+				cin >> input;
+				switch(input)
+				{
+					case 1:
+					{
+						status = true;
+						cout<<"Account status changed to true!\n\n";
+						return;
+					}
+					case 2:
+					{
+						status = false;
+						cout<<"Account status changed to false!\n\n";
+						return;
+					}
+					default: // error catching
+					{ 
+						cout << "Try another input!" << endl;
+						cin.clear();
+						cin.ignore();
+						continue;
+					}
+				}
+			}
+        }
    
 };
 #endif
