@@ -14,13 +14,13 @@ Driver for Team 2 CSC 232 final project Bear Bank.
 Project done by Ethan Tanner, Ethan Dawley, and Christian Leslie
 */
 
-string getDate(){
+string getDate(){ //Uses ctime to get the current date
 	time_t timeNow = time(0);   
-    tm *localTime = localtime(&timeNow);
-    return to_string(1 + localTime->tm_mon) +"/"+to_string(localTime->tm_mday)+"/"+ to_string(1900 + localTime->tm_year);
+    	tm *localTime = localtime(&timeNow);
+    	return to_string(1 + localTime->tm_mon) +"/"+to_string(localTime->tm_mday)+"/"+ to_string(1900 + localTime->tm_year);
 }
 
-void fromFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){
+void fromFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){ //Reads from the logins.txt file and creates three vectors based on the final content
 	ifstream file; string num; string pass; string name; string lastDate; string info;
 	admin.clear();
 	official.clear();
@@ -91,7 +91,7 @@ void fromFile(vector<Admin> &admin, vector<Official> &official, vector<User> &us
 	file.close();
 }
 
-void updateFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){
+void updateFile(vector<Admin> &admin, vector<Official> &official, vector<User> &user){ //Reads from the three vectors and updates the logins.txt file
 	ofstream file; file.open("logins.txt",ofstream::trunc);
 	cout<<endl<<"Updating file...\n";
 	for(Admin &i: admin){
@@ -107,7 +107,7 @@ void updateFile(vector<Admin> &admin, vector<Official> &official, vector<User> &
 	fromFile(admin,official,user);
 }
 
-void loginSearch(string number, string password, vector<Admin> &admin, vector<Official> &official, vector<User> &user, string date){
+void loginSearch(string number, string password, vector<Admin> &admin, vector<Official> &official, vector<User> &user, string date){ //Searches the three vectors for an account based on an inputted login number and password
 		if(number[0] == '0'){
 			for(Admin &i: admin){
 				if(number == i.getNumber() and password == i.getPassword()){
@@ -154,11 +154,13 @@ main(){
 	fromFile(admin, official, user);
 	
 	bool check = true;
-	while(check){
+	while(check)
+	{
 		cout<<endl<<"Welcome to Bear Bank!\n[1] Login\n[2] Exit"<<endl;
 		cout<<endl<<"Choose an option: ";
 		int option; cin>>option;
-		switch(option){
+		switch(option)
+		{
 			case 1:
 				cout<<"Enter your login number: ";
 				cin>>loginNum;
