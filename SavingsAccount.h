@@ -114,8 +114,8 @@ class SavingsAccount : public AbAccount {
       if(amount > 0.00) //if the amount deposited is more than 0 
       {
          balance += amount;//successfully deposit
-		 fstream file; file.open(number+"transactions.txt");
-		 file<<date+"*Deposited "<<amount<<" into savings."<<endl;
+		 ofstream file; file.open(number+"transactions.txt", fstream::app);
+		 file<<date+"*Deposited "<<amount<<" into savings"<<endl;
 		 file.close();
       }
       else //if the deposit is not a positive amount it will not deposit
@@ -152,8 +152,8 @@ class SavingsAccount : public AbAccount {
             if(balance >= amount) 
             {
                 balance -= amount;
-				fstream file; file.open(number+"transactions.txt");
-				file<<date+"*Withdrew "<<amount<<" from savings."<<endl;
+				ofstream file; file.open(number+"transactions.txt", fstream::app);
+				file<<date+"*Withdrew "<<amount<<" from savings"<<endl;
 				file.close();
             }
             else 
@@ -191,5 +191,36 @@ class SavingsAccount : public AbAccount {
 		else
 			status = false; 
    }
+   
+   void setStatus()
+        {
+			while(true){
+				int input;
+				cout <<endl<<"1 to activate account.\n" << "2 to deactivate account.\n";
+				cin >> input;
+				switch(input)
+				{
+					case 1:
+					{
+						status = true;
+						cout<<"Account status changed to true!\n\n";
+						return;
+					}
+					case 2:
+					{
+						status = false;
+						cout<<"Account status changed to false!\n\n";
+						return;
+					}
+					default: // error catching
+					{ 
+						cout << "Try another input!" << endl;
+						cin.clear();
+						cin.ignore();
+						continue;
+					}
+				}
+			}
+        }
 };
 #endif
