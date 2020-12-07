@@ -127,7 +127,7 @@ class CD : public AbAccount {
        if(!status) 
        {
             cout<<"You don't have a CD! Contact a Bank Official to open one.\n";
-            return 0;	
+            return;	
        }
             
             int month = stoi(date.substr(0,date.find("/")));
