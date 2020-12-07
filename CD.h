@@ -58,10 +58,6 @@ class CD : public AbAccount {
                           cout << "Maturity Date: " << maturityDate << endl; //put maturityDate variable here
                           cout << "Monthly Interest Rate: " << rate << endl;//put rate variable here
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          cout << "-------------------" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 2: 
@@ -69,10 +65,6 @@ class CD : public AbAccount {
                           cout << "-------------------" << endl;
                           cout << "Your CD is now closed. You recieved $" << close(lastDate) << endl;
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          cout << "-------------------" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 3:
@@ -82,10 +74,6 @@ class CD : public AbAccount {
                           cout << "Maturity Date: " << maturityDate << endl; //put maturityDate variable here
                           cout << "Monthly Interest Rate: " << rate << endl;//put rate varaible here
                           cout << "-------------------" << endl;
-                          cout << "Hit enter to continue" << endl;
-                          cout << "-------------------" << endl;
-                          char enter = cin.get(); 
-                          cin.ignore();
                           continue;
                        }
                        case 4:
