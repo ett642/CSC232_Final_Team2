@@ -39,24 +39,6 @@ public:
 		return name;
 	}
 
-	virtual CheckingAccount getChecking()
-	{
-		CheckingAccount temp = CheckingAccount();
-		return temp;
-	}
-
-	virtual SavingsAccount getSavings()
-    {
-        SavingsAccount temp = SavingsAccount();
-		return temp;
-    }
-
-    virtual CD getCD()
-    {
-        CD temp = CD();
-		return temp;
-    }
-
 	virtual void changeCheckingStat()
     {
         
